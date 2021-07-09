@@ -82,7 +82,7 @@ class UserManagementServiceProvider extends ServiceProvider
 
         // Publishing assets.
         $this->publishes([
-            __DIR__ . '/../resources/assets' => public_path('ums'),
+            __DIR__ . '/../resources/assets' => public_path('user'),
         ], 'ums.assets');
 
         // Registering package commands.
