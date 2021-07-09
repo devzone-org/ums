@@ -23,6 +23,7 @@ To display something in Ray use the `ray()` function. It accepts everything: str
 - [Vue](#vue)
 - [Go](#go)
 - [Alpine.js](#alpinejs)
+- [Bash](#bash)
 
 ## Framework agnostic PHP
 
@@ -216,15 +217,21 @@ Read more on [Craft](/docs/ray/v1/usage/craft)
 | `ray(…).hide()` | Display something in Ray and make it collapse immediately |
 | `ray().hideApp()` | Programmatically hide the Ray app window |
 | `ray().html(string)` | Send HTML to Ray |
+| `ray().if(true, callback)` | Conditionally show things based on a truthy value or callable |
 | `ray().image(url)` | Display an image in Ray |
 | `ray().json([…])` | Send JSON to Ray |
+| `ray().limit(N).…` | Limit the number of payloads that can be sent to Ray to N; used for debugging within loops |
 | `ray().measure(callable)` | Measure the performance of a callback function |
 | `ray().measure()` | Begin measuring the overall time and elapsed time since previous `measure()` call |
 | `ray().newScreen()` | Start a new screen |
 | `ray().newScreen('title')` | Start a new named screen |
 | `ray(…).notify(message)` | Display a notification |
+| `ray().once(arg1, …)` | Only send a payload once when in a loop |
 | `ray(…).pass(variable)` | Display something in Ray and return the value instead of a Ray instance |
 | `ray().pause()` | Pause code execution within your code; must be called using `await` |
+| `ray().rateLimiter().max(int maxCalls)` | Limits the amount of calls sent to Ray |
+| `ray().rateLimiter().perSecond(maxCalls)` | Limits the amount of calls sent to Ray in a second |
+| `ray().rateLimiter().clear()` | Clears the rate limits |
 | `ray.remove()` | Remove an item from Ray   |
 | `ray.removeIf(true)` | Conditionally remove an item based on a truthy value or callable   |
 | `ray.removeWhen(true)` | Conditionally remove an item based on a truthy value or callable   |
@@ -292,3 +299,27 @@ All methods available to [NodeJS](#nodejs) are available to the Alpine.js integr
 | `$ray.send()` | Update the content of a Ray instance  |
 
 Read more on [JavaScript](/docs/ray/v1/usage/javascript)
+
+## Bash
+
+| Command | Description |
+| --- | --- |
+| `clear` | Clear the current screen |
+| `clear-all` | Clear the current and all previous screens |
+| `color <uuid> <color>` | Change the color of a payload that has already been sent |
+| `file <filename>` | Show the contents of `filename` |
+| `hide-app` | Hide the Ray app |
+| `html <content>` | Display rendered html |
+| `image <location>` | Display an image from a URL or file |
+| `json <content>` | Display formatted JSON |
+| `notify <message>` | Display a desktop notification |
+| `pause` | Pause code execution |
+| `remove <uuid>` | Remove a payload |
+| `send <payload>` | Send a payload to Ray |
+| `show-app` | Show the Ray app |
+| `size <uuid> <size>` | Change the text size of a payload that has already been sent _(sizes are 'large' or 'small')_ |
+| `text <data>` | Display a text string with whitespace preserved |
+| `xml <data>` | Display formatted XML |
+
+Read more on [Bash](/docs/ray/v1/usage/bash)
+

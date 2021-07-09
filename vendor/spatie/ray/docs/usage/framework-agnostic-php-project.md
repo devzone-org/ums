@@ -361,11 +361,15 @@ ray()->table(['John', 'Paul', 'George', 'Ringo'], 'Beatles');
 
 ### Displaying images
 
-To display an image, call the `image` function and pass either a fully-qualified filename or url as its only argument.
+To display an image, call the `image` function and pass a fully-qualified filename, url, or a valid base64-encoded image as its only argument.
 
 ```php
 ray()->image('https://placekitten.com/200/300');
 ray()->image('/home/user/kitten.jpg');
+
+// display base64-encoded images
+ray()->image('data:image/png;base64,iVBORw0KGgoAAA...truncated');
+ray()->image('iVBORw0KGgoAAA...truncated');
 ```
 
 ### Rendering HTML
@@ -433,7 +437,7 @@ value or a callable that returns a truthy value.
 
 
 Note that when `if()` is called with only a conditional, **all** following chained methods will only execute if the conditional 
-is true.  When using a callback with `when()`, all additional chained methods will be called.
+is true.  When using a callback with `if()`, all additional chained methods will be called.
 
 ```php
 for($i = 0; $i < 100; $i++) {
@@ -470,7 +474,7 @@ for($i = 0; $i < 100; $i++) {
 }
 ```
 
-Or chain multiple calls to `when()` with callbacks that don't affect the chained methods following them:
+Or chain multiple calls to `if()` with callbacks that don't affect the chained methods following them:
 
 ```php
 for($i = 0; $i < 100; $i++) {
@@ -529,7 +533,7 @@ ray($largeObject)->hide()
 
 ### Returning items
 
-To make all methods chainable, the `ray()` function returns and instance of `Spatie\Ray\Ray`. To quickly send something
+To make all methods chainable, the `ray()` function returns an instance of `Spatie\Ray\Ray`. To quickly send something
 to Ray and have that something return as a value, use the `pass` function.
 
 ```php
