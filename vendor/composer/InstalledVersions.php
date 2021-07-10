@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '317b77056df56f2c1d4941e2cafa165824869642',
+    'reference' => '1527f765d8c694a1befaaa573eccdfac5eff9e98',
     'name' => 'devzone/user-management',
   ),
   'versions' => 
@@ -64,7 +64,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '317b77056df56f2c1d4941e2cafa165824869642',
+      'reference' => '1527f765d8c694a1befaaa573eccdfac5eff9e98',
     ),
     'doctrine/inflector' => 
     array (
