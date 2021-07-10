@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '32df752d42eb98fdee34922d2953cf63adb9842f',
+    'reference' => '317b77056df56f2c1d4941e2cafa165824869642',
     'name' => 'devzone/user-management',
   ),
   'versions' => 
@@ -64,7 +64,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '32df752d42eb98fdee34922d2953cf63adb9842f',
+      'reference' => '317b77056df56f2c1d4941e2cafa165824869642',
     ),
     'doctrine/inflector' => 
     array (
@@ -616,6 +616,15 @@ private static $installed = array (
       ),
       'reference' => 'fb9b8333f14e3dce976a60ef6a7e05c7c7ed8bfb',
     ),
+    'predis/predis' => 
+    array (
+      'pretty_version' => 'v1.1.7',
+      'version' => '1.1.7.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b240daa106d4e02f0c5b7079b41e31ddf66fddf8',
+    ),
     'psr/container' => 
     array (
       'pretty_version' => '1.1.1',
@@ -693,8 +702,8 @@ private static $installed = array (
     array (
       'provided' => 
       array (
-        0 => '1.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'psr/simple-cache' => 
@@ -892,15 +901,6 @@ private static $installed = array (
       array (
       ),
       'reference' => '9b4df807fb65aaa8006dcd7a7ccdef8fb4bb002e',
-    ),
-    'spatie/laravel-permission' => 
-    array (
-      'pretty_version' => '4.2.0',
-      'version' => '4.2.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'a6e4122b65094baba7f98df153af0768ef910c85',
     ),
     'spatie/laravel-ray' => 
     array (

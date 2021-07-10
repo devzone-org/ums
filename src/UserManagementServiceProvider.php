@@ -6,9 +6,12 @@ use Devzone\UserManagement\Http\Livewire\AddUser;
 use Devzone\UserManagement\Http\Livewire\ChangePassword;
 use Devzone\UserManagement\Http\Livewire\EditUser;
 use Devzone\UserManagement\Http\Livewire\IPWhitelist;
+use Devzone\UserManagement\Http\Livewire\Permission;
 use Devzone\UserManagement\Http\Livewire\Profile;
 use Devzone\UserManagement\Http\Livewire\Schedule;
 use Devzone\UserManagement\Http\Livewire\Users;
+use Devzone\UserManagement\Http\Middleware\CheckTiming;
+use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
@@ -22,6 +25,10 @@ class UserManagementServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        $kernel = $this->app->make(Kernel::class);
+        $kernel->pushMiddleware(CheckTiming::class);
+
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'devzone');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'ums');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
@@ -53,13 +60,14 @@ class UserManagementServiceProvider extends ServiceProvider
 
     private function registerLivewireComponent()
     {
-        Livewire::component('profile',Profile::class);
-        Livewire::component('change-password',ChangePassword::class);
-        Livewire::component('add-user',AddUser::class);
-        Livewire::component('edit-user',EditUser::class);
-        Livewire::component('users',Users::class);
-        Livewire::component('ip-restriction',IPWhitelist::class);
-        Livewire::component('schedule',Schedule::class);
+        Livewire::component('profile', Profile::class);
+        Livewire::component('change-password', ChangePassword::class);
+        Livewire::component('add-user', AddUser::class);
+        Livewire::component('edit-user', EditUser::class);
+        Livewire::component('users', Users::class);
+        Livewire::component('ip-restriction', IPWhitelist::class);
+        Livewire::component('schedule', Schedule::class);
+        Livewire::component('permission', Permission::class);
     }
 
     /**

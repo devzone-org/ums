@@ -4,6 +4,9 @@
 namespace Devzone\UserManagement\Http\Livewire;
 
 
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 use Livewire\Component;
 
 class Schedule extends Component
@@ -24,6 +27,7 @@ class Schedule extends Component
     public function render()
     {
         $this->search();
+
         return view('ums::livewire.schedule');
     }
 
@@ -54,8 +58,8 @@ class Schedule extends Component
                 'from' => $s['from'] ?? null,
                 'to' => $s['to'] ?? null,
 
-                'from1' => $s['from1'] ?? null,
-                'to1' => $s['to1'] ?? null,
+
+                'status' => $s['status'] ?? null,
 
             ]
         );

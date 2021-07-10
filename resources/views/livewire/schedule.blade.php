@@ -19,12 +19,7 @@
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     To
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    From
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    To
-                </th>
+
 
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
@@ -44,15 +39,14 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         <input type="time" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" wire:model.defer="schedule.{{ $key }}.to" >
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        <input type="time" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" wire:model.defer="schedule.{{ $key }}.from1" >
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <input type="time" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" wire:model.defer="schedule.{{ $key }}.to1" >
-                    </td>
+
 
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-
+                        <select  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" wire:model.defer="schedule.{{ $key }}.status" >
+                            <option value=""></option>
+                            <option value="t">On</option>
+                            <option value="f">Off</option>
+                        </select>
                     </td>
                 </tr>
 

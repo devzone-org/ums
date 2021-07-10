@@ -10,6 +10,7 @@
             @livewire('edit-user',['id' => $id])
             @livewire('ip-restriction',['id'=>$id])
             @livewire('schedule',['id'=>$id])
+            @livewire('permission',['id'=>$id])
         </div>
     </div>
 @endsection
