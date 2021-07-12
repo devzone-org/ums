@@ -21,7 +21,7 @@ class CreateScheduleTable extends Migration
             $table->time('to')->nullable();
             $table->time('from1')->nullable();
             $table->time('to1')->nullable();
-            $table->char('status', 1);
+            $table->char('status', 1)->nullable();
             $table->timestamps();
         });
     }

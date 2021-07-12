@@ -2,5 +2,5 @@
 
 return [
     'prefix' => 'ums',
-    'middleware' => ['web','auth'],
+    'middleware' => ['web'],
 ];
