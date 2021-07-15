@@ -125,7 +125,7 @@
                                             </svg>
                                         </a>
 
-                                        @if(isset(Auth::user()->account_id) )
+                                        @if(isset(Auth::user()->account_id) || true)
                                             @if(empty($u->account_id))
                                                 <button title="Link to Accounts" type="button"
                                                         wire:click="linkToAccounts('{{ $u->id }}')"
