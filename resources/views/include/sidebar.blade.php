@@ -19,11 +19,11 @@
         </a>
 
 
-        <a href="{{ url('ums/users') }}" class="{{ (Request::segment(1) == 'ums'  &&  Request::segment(2) == 'users' ) ? $current : $default  }} group rounded-md px-3 py-2 flex items-center text-sm font-medium" aria-current="page">
-            <span class="truncate">
-          Users
-        </span>
-        </a>
+{{--        <a href="{{ url('ums/users') }}" class="{{ (Request::segment(1) == 'ums'  &&  Request::segment(2) == 'users' ) ? $current : $default  }} group rounded-md px-3 py-2 flex items-center text-sm font-medium" aria-current="page">--}}
+{{--            <span class="truncate">--}}
+{{--          Users--}}
+{{--        </span>--}}
+{{--        </a>--}}
 
 
     </nav>
