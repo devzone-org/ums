@@ -14,6 +14,7 @@ class Permission extends Component
     public $user_id;
     public $user;
     public $permissions = [];
+    public $keyword;
 
 
     public function mount($id)
@@ -26,6 +27,17 @@ class Permission extends Component
     public function render()
     {
         return view('ums::livewire.permissions');
+    }
+
+    public function updatedKeyword($value)
+    {
+
+        $this->permissions = \Spatie\Permission\Models\Permission::when(!empty($value),function($q) use ($value) {
+
+                    return $q->orWhere('name','LIKE','%'.$value.'%')->orWhere('section','LIKE','%'.$value.'%')->orWhere('portal','LIKE','%'.$value.'%');
+
+        })->get()->toArray();
+
     }
 
     public function assign($name)
