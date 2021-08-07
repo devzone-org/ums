@@ -2,6 +2,7 @@
 
 namespace Devzone\UserManagement;
 
+use Devzone\UserManagement\Console\DumpMasterData;
 use Devzone\UserManagement\Http\Livewire\AddUser;
 use Devzone\UserManagement\Http\Livewire\ChangePassword;
 use Devzone\UserManagement\Http\Livewire\EditUser;
@@ -94,7 +95,9 @@ class UserManagementServiceProvider extends ServiceProvider
         ], 'ums.assets');
 
         // Registering package commands.
-        // $this->commands([]);
+        $this->commands([
+            DumpMasterData::class
+        ]);
     }
 
     /**
