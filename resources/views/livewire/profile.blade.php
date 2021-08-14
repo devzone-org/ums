@@ -60,7 +60,7 @@
                         </div>
                     </div>
 
-                    @if(isset($user['account_id']) || true)
+                    @if(config('user-management.link_user_account'))
                         <div
                             class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                             <label for="email" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
