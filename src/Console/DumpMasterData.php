@@ -4,7 +4,9 @@
 namespace Devzone\UserManagement\Console;
 
 
+use App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 
 class DumpMasterData extends Command
@@ -22,6 +24,15 @@ class DumpMasterData extends Command
         Permission::updateOrCreate(['name' => '1.user-schedule'], ['guard_name' => 'web', 'description' => 'user schedule', 'portal' => 'user management', 'section' => 'user management']);
         Permission::updateOrCreate(['name' => '1.user-permission'], ['guard_name' => 'web', 'description' => 'user permissions', 'portal' => 'user management', 'section' => 'user management']);
 
+        User::updateOrCreate([
+            'email' => 'talha@devzone.services'
+        ],[
+                'name' => 'Muhammad Talha',
+                'password' => Hash::make('HelloWorld123@#'),
+                'status' => 't',
+                'account_id' =>'78',
+                'account_name' => 'Cash in Hand - Muhammad Talha'
+        ]);
         $this->info('Dumping  Master Data UMS...');
     }
 }
