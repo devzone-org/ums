@@ -3,6 +3,7 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Permission;
 
 Route::middleware(['auth'])->group(function () {
 
