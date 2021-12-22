@@ -26,13 +26,19 @@ class DumpMasterData extends Command
 
         User::updateOrCreate([
             'email' => 'talha@devzone.services'
-        ],[
-                'name' => 'Muhammad Talha',
-                'password' => Hash::make('HelloWorld123@#'),
-                'status' => 't',
-                'account_id' =>'78',
-                'account_name' => 'Cash in Hand - Muhammad Talha'
+        ], [
+            'name' => 'Muhammad Talha',
+            'password' => Hash::make('HelloWorld123@#'),
+            'status' => 't',
+            'account_id' => '78',
+            'account_name' => 'Cash in Hand - Muhammad Talha'
         ]);
+        $user = User::find(1);
+        foreach (Permission::get() as $permission) {
+            if ($user->email == 'talha@devzone.services') {
+                $user->givePermissionTo($permission->name);
+            }
+        }
         $this->info('Dumping  Master Data UMS...');
     }
 }
