@@ -32,10 +32,12 @@ class LoggedMailPayload extends Payload
     {
         $parser = new MailMimeParser();
 
-        $message = $parser->parse($loggedMail);
+        $message = $parser->parse($loggedMail, true);
+
+        $content = $message->getContent() ?? $message->getHtmlContent() ?? '';
 
         return new self(
-            $message->getContent(),
+            $content,
             self::convertHeaderToPersons($message->getHeader(HeaderConsts::FROM)),
             $message->getHeaderValue(HeaderConsts::SUBJECT),
             self::convertHeaderToPersons($message->getHeader(HeaderConsts::TO)),

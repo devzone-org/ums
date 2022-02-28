@@ -2,7 +2,7 @@
 
 return [
     /*
-    * This settings controls whether data should be sent to Ray.
+    * This setting controls whether data should be sent to Ray.
     *
     * By default, `ray()` will only transmit data in non-production environments.
     */
@@ -35,6 +35,16 @@ return [
     */
     'send_queries_to_ray' => env('SEND_QUERIES_TO_RAY', false),
 
+    /**
+     * When enabled, all duplicate queries will automatically be sent to Ray.
+     */
+    'send_duplicate_queries_to_ray' => env('SEND_DUPLICATE_QUERIES_TO_RAY', false),
+
+    /*
+     * When enabled, slow queries will automatically be sent to Ray.
+     */
+    'send_slow_queries_to_ray' => env('SEND_SLOW_QUERIES_TO_RAY', false),
+    
     /*
     * When enabled, all requests made to this app will automatically be sent to Ray.
     */

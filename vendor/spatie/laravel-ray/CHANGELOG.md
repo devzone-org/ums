@@ -2,6 +2,138 @@
 
 All notable changes to `laravel-ray` will be documented in this file
 
+## 1.29.3 - 2022-02-15
+
+- correctly display mailables that are written to the log in Laravel 9
+
+## 1.29.2 - 2022-02-13
+
+## What's Changed
+
+- Fix deprecated by @TiiFuchs in https://github.com/spatie/laravel-ray/pull/240
+
+## New Contributors
+
+- @TiiFuchs made their first contribution in https://github.com/spatie/laravel-ray/pull/240
+
+**Full Changelog**: https://github.com/spatie/laravel-ray/compare/1.29.1...1.29.2
+
+## 1.29.1 - 2022-02-09
+
+- moved dependency
+
+## 1.29.0 - 2022-01-13
+
+- automatically set project name
+
+## 1.28.0 - 2022-01-11
+
+1.28.0
+
+- allow Laravel 9
+
+## 1.28.0 - 2022-01-11
+
+- allow Laravel 9
+
+## 1.27.2 - 2021-12-27
+
+- Fix: make sure there is always a `VarDumper` handler registered to output to HTML or CLI
+
+**Full Changelog**: https://github.com/spatie/laravel-ray/compare/1.27.1...1.27.2
+
+## 1.27.1 - 2021-12-27
+
+## What's Changed
+
+- Register `DumpRecorder` only once and keep original handler connected by @AlexVanderbist in https://github.com/spatie/laravel-ray/pull/233
+
+## New Contributors
+
+- @AlexVanderbist made their first contribution in https://github.com/spatie/laravel-ray/pull/233
+
+**Full Changelog**: https://github.com/spatie/laravel-ray/compare/1.27.0...1.27.1
+
+## 1.27.0 - 2021-12-26
+
+## What's Changed
+
+- Slow Query Logging by @patinthehat in https://github.com/spatie/laravel-ray/pull/232
+
+**Full Changelog**: https://github.com/spatie/laravel-ray/compare/1.26.5...1.27.0
+
+## 1.26.5 - 2021-12-21
+
+## What's Changed
+
+- add support for Symfony 6 by @Nielsvanpach in https://github.com/spatie/laravel-ray/pull/231
+
+**Full Changelog**: https://github.com/spatie/laravel-ray/compare/1.26.4...1.26.5
+
+## 1.26.4 - 2021-12-10
+
+## What's Changed
+
+- Added DeprecatedNoticeWatcher that piggy backs off of the Application… by @JuanRangel in https://github.com/spatie/laravel-ray/pull/229
+
+## New Contributors
+
+- @JuanRangel made their first contribution in https://github.com/spatie/laravel-ray/pull/229
+
+**Full Changelog**: https://github.com/spatie/laravel-ray/compare/1.26.3...1.26.4
+
+## 1.26.3 - 2021-11-22
+
+## What's Changed
+
+- Fix typo in ray.php docblock by @iDiegoNL in https://github.com/spatie/laravel-ray/pull/227
+
+## New Contributors
+
+- @iDiegoNL made their first contribution in https://github.com/spatie/laravel-ray/pull/227
+
+**Full Changelog**: https://github.com/spatie/laravel-ray/compare/1.26.2...1.26.3
+
+## 1.26.2 - 2021-11-15
+
+## What's Changed
+
+- Check if Laravel has been bound with `Facade\FlareClient\Flare` by @crynobone in https://github.com/spatie/laravel-ray/pull/224
+
+**Full Changelog**: https://github.com/spatie/laravel-ray/compare/1.26.1...1.26.2
+
+## 1.26.1 - 2021-10-01
+
+- fix #217 error with duplicate queries log (#220)
+
+## 1.26.0 - 2021-09-27
+
+- feature duplicate queries (#216)
+
+## 1.25.2 - 2021-09-10
+
+- enhance metadata instead of overriding it in when sending a request (#215)
+
+## 1.25.1 - 2021-09-07
+
+- add support for zbateson/mail-mime-parser v2 (#214)
+
+## 1.25.0 - 2021-08-27
+
+- add tags to cache payload (#210)
+
+## 1.24.2 - 2021-07-23
+
+- fix origin of query builder ray calls (now for real)
+
+## 1.24.1 - 2021-07-23
+
+- fix origin of query builder ray calls
+
+## 1.24.0 - 2021-07-23
+
+- add `ray` macro on query builder
+
 ## 1.23.0 - 2021-06-24
 
 - allow multiple mailables ([#204](https://github.com/spatie/laravel-ray/pull/204))
@@ -16,7 +148,7 @@ All notable changes to `laravel-ray` will be documented in this file
 
 ## 1.20.2 - 2021-06-21
 
-- fix `mailable` when using `Mail::fake` 
+- fix `mailable` when using `Mail::fake`
 
 ## 1.20.1 - 2021-06-15
 
@@ -49,7 +181,7 @@ All notable changes to `laravel-ray` will be documented in this file
 ## 1.17.2 - 2021-04-06
 
 - Laravel Octane Compatibility (#178)
- 
+
 ## 1.17.1 - 2021-03-14
 
 - send exceptions by default

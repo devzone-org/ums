@@ -7,6 +7,10 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
 use Orchestra\Testbench\Foundation\PackageManifest;
 
+/**
+ * @property bool|null $enablesPackageDiscoveries
+ * @property bool|null $loadEnvironmentVariables
+ */
 trait CreatesApplication
 {
     /**
@@ -22,10 +26,14 @@ trait CreatesApplication
     /**
      * Ignore package discovery from.
      *
-     * @return array
+     * @return array<int, string>
      */
     public function ignorePackageDiscoveriesFrom()
     {
+        if (property_exists($this, 'enablesPackageDiscoveries') && $this->enablesPackageDiscoveries === true) {
+            return [];
+        }
+
         return ['*'];
     }
 
@@ -46,7 +54,7 @@ trait CreatesApplication
      *
      * @param  \Illuminate\Foundation\Application  $app
      *
-     * @return array
+     * @return array<string|class-string, string|class-string>
      */
     protected function overrideApplicationBindings($app)
     {
@@ -72,7 +80,7 @@ trait CreatesApplication
      *
      * @param  \Illuminate\Foundation\Application  $app
      *
-     * @return array
+     * @return array<string, class-string>
      */
     protected function getApplicationAliases($app)
     {
@@ -84,7 +92,7 @@ trait CreatesApplication
      *
      * @param  \Illuminate\Foundation\Application  $app
      *
-     * @return array
+     * @return array<string, class-string>
      */
     protected function overrideApplicationAliases($app)
     {
@@ -96,7 +104,7 @@ trait CreatesApplication
      *
      * @param  \Illuminate\Foundation\Application  $app
      *
-     * @return array
+     * @return array<string, class-string>
      */
     final protected function resolveApplicationAliases($app): array
     {
@@ -117,7 +125,7 @@ trait CreatesApplication
      *
      * @param  \Illuminate\Foundation\Application  $app
      *
-     * @return array
+     * @return array<string, class-string>
      */
     protected function getPackageAliases($app)
     {
@@ -129,7 +137,7 @@ trait CreatesApplication
      *
      * @param  \Illuminate\Foundation\Application  $app
      *
-     * @return array
+     * @return array<int, class-string>
      */
     protected function getPackageBootstrappers($app)
     {
@@ -141,7 +149,7 @@ trait CreatesApplication
      *
      * @param  \Illuminate\Foundation\Application  $app
      *
-     * @return array
+     * @return array<int, class-string>
      */
     protected function getApplicationProviders($app)
     {
@@ -153,7 +161,7 @@ trait CreatesApplication
      *
      * @param  \Illuminate\Foundation\Application  $app
      *
-     * @return array
+     * @return array<int, class-string>
      */
     protected function overrideApplicationProviders($app)
     {
@@ -165,7 +173,7 @@ trait CreatesApplication
      *
      * @param  \Illuminate\Foundation\Application  $app
      *
-     * @return array
+     * @return array<int, class-string>
      */
     final protected function resolveApplicationProviders($app): array
     {
@@ -186,7 +194,7 @@ trait CreatesApplication
      *
      * @param  \Illuminate\Foundation\Application  $app
      *
-     * @return array
+     * @return array<int, class-string>
      */
     protected function getPackageProviders($app)
     {

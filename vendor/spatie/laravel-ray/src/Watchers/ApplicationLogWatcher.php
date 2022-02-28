@@ -21,6 +21,10 @@ class ApplicationLogWatcher extends Watcher
                 return;
             }
 
+            if (! class_exists('Spatie\Ray\Payloads\ApplicationLogPayload')) {
+                return;
+            }
+
             $payload = new ApplicationLogPayload($message->message);
 
             /** @var Ray $ray */
@@ -66,6 +70,10 @@ class ApplicationLogWatcher extends Watcher
         }
 
         if ((new LoggedMailWatcher())->concernsLoggedMail($message)) {
+            return false;
+        }
+
+        if ((new DeprecatedNoticeWatcher())->concernsDeprecatedNotice($message)) {
             return false;
         }
 

@@ -14,6 +14,7 @@ import LoadingStates from '@/component/LoadingStates'
 import OfflineStates from '@/component/OfflineStates'
 import SyncBrowserHistory from '@/component/SyncBrowserHistory'
 import SupportAlpine from '@/component/SupportAlpine'
+import SupportStacks from '@/component/SupportStacks'
 
 class Livewire {
     constructor() {
@@ -65,6 +66,10 @@ class Livewire {
         this.components.on(event, callback)
     }
 
+    addHeaders(headers) {
+        this.connection.headers = { ...this.connection.headers, ...headers}
+    }
+
     devTools(enableDevtools) {
         this.devToolsEnabled = enableDevtools
     }
@@ -106,6 +111,10 @@ class Livewire {
             this.components.addComponent(new Component(el, this.connection))
         })
     }
+
+    onPageExpired(callback) {
+        this.components.sessionHasExpiredCallback = callback
+    }
 }
 
 if (!window.Livewire) {
@@ -116,6 +125,7 @@ monkeyPatchDomSetAttributeToAllowAtSymbols()
 
 SyncBrowserHistory()
 SupportAlpine()
+SupportStacks()
 FileDownloads()
 OfflineStates()
 LoadingStates()
@@ -138,7 +148,9 @@ function monkeyPatchDomSetAttributeToAllowAtSymbols() {
     let hostDiv = document.createElement('div')
 
     Element.prototype.setAttribute = function newSetAttribute(name, value) {
-        if (! name.includes('@')) original.call(this, name, value)
+        if (! name.includes('@')) {
+            return original.call(this, name, value)
+        }
 
         hostDiv.innerHTML = `<span ${name}="${value}"></span>`
 

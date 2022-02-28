@@ -11,8 +11,11 @@ use Livewire\Component;
 
 class Users extends Component
 {
-
     public $success;
+    public $status = 't';
+    public $email;
+    public $name;
+    public $users;
 
     protected $rules = [
         'email' => 'required|unique:users.email',
@@ -22,8 +25,23 @@ class Users extends Component
 
     public function render()
     {
-        $users = User::get();
-        return view('ums::livewire.users', compact('users'));
+       $this->search();
+
+        return view('ums::livewire.users');
+    }
+
+    public function search(){
+
+
+        $this->users = User::when(!empty($this->status),function ($q){
+            return $q->where('status', $this->status);
+        })->when(!empty($this->email),function ($q){
+            return $q->where('email', $this->email);
+        })->when(!empty($this->name),function ($q){
+            return $q->where('name', 'LIKE' , '%' . $this->name . '%');
+        })
+            ->get();
+
     }
 
     public function linkToAccounts($id)
