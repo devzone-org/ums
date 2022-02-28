@@ -1,5 +1,5 @@
 <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
-    <form wire:submit.prevent="search">
+    <form wire:submit.prevent="search()">
         <div class="shadow sm:rounded-md sm:overflow-hidden">
             <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
 
@@ -14,7 +14,7 @@
                     <div class="col-span-6 sm:col-span-2">
                         <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
                         <input type="text" wire:model.defer="name" id="name" autocomplete="off"
-                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     </div>
 
 
@@ -34,7 +34,7 @@
                         class="mr-2 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm   font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     Reset
                 </button>
-                <button type="button"
+                <button type="submit"
                         class="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     Search
                 </button>
@@ -141,12 +141,12 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         @if($u->status == 't')
                                             <span
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                   Active
                 </span>
                                         @else
                                             <span
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                   Inactive
                 </span>
                                         @endif
@@ -158,7 +158,7 @@
                                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                                  xmlns="http://www.w3.org/2000/svg">
                                                 <path
-                                                    d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+                                                        d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
                                                 <path fill-rule="evenodd"
                                                       d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
                                                       clip-rule="evenodd"></path>

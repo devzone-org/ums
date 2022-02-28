@@ -5,6 +5,8 @@ namespace Devzone\UserManagement\Http\Livewire;
 
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class EditUser extends Component
@@ -17,9 +19,19 @@ class EditUser extends Component
     public $status;
     public $primary_id;
 
-    protected $rules = [
+    protected  $rules = [
         'email' => 'required',
-        'name' => 'required'
+        'name' => 'required',
+        'password' => 'min:6',
+        'password_confirmation' => 'required_with:password|same:password'
+    ];
+
+
+    protected  $validationAttributes = [
+        'email' => 'Email',
+        'name' => 'Name',
+        'password' => 'Password',
+        'password_confirmation' => 'Confirm Password'
     ];
 
     public function mount($id)
@@ -29,6 +41,7 @@ class EditUser extends Component
         $this->name  =$user->name;
         $this->email  =$user->email;
         $this->status  =$user->status;
+
     }
 
     public function render()
@@ -51,8 +64,22 @@ class EditUser extends Component
             $this->success = 'User has been edited.';
         }
 
-
     }
+
+    public function editPass()
+    {
+        $this->validate();
+
+            User::find(Auth::user()->id)
+                ->update([
+                    'password' => Hash::make($this->password)
+                ]);
+
+            $this->success = 'Password has been updated.';
+            $this->reset(['password', 'password_confirmation']);
+        }
+
+
 
 
 }

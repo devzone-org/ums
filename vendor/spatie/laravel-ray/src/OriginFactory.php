@@ -4,6 +4,7 @@ namespace Spatie\LaravelRay;
 
 use Illuminate\Cache\CacheManager;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Log\Logger;
 use Illuminate\Log\LogManager;
@@ -54,7 +55,7 @@ class OriginFactory
 
         $rayFunctionFrame = $frames[$indexOfRay + 2] ?? null;
 
-        /** @var Frame|null $foundFrame */
+        /** @var Frame|null $originFrame */
         $originFrame = $frames[$indexOfRay + 1] ?? null;
 
         if ($originFrame && Str::endsWith($originFrame->file, Ray::makePathOsSafe('ray/src/helpers.php'))) {
@@ -99,6 +100,10 @@ class OriginFactory
             return $this->findFrameForEvent($frames);
         }
 
+        if ($originFrame->class === Builder::class) {
+            return $this->findFrameForQueryBuilder($frames);
+        }
+
         if (Str::endsWith($originFrame->file, Ray::makePathOsSafe('/vendor/psy/psysh/src/ExecutionLoopClosure.php'))) {
             $this->returnTinkerFrame();
         }
@@ -127,6 +132,22 @@ class OriginFactory
     protected function findFrameForQuery(Collection $frames): ?Frame
     {
         $indexOfLastDatabaseCall = $frames
+            ->filter(function (Frame $frame) {
+                return ! is_null($frame->class);
+            })
+            ->search(function (Frame $frame) {
+                return Str::startsWith($frame->class, 'Illuminate\Database');
+            });
+
+        return $frames[$indexOfLastDatabaseCall + 1] ?? null;
+    }
+
+    protected function findFrameForQueryBuilder(Collection $frames): ?Frame
+    {
+        $indexOfLastDatabaseCall = $frames
+            ->filter(function (Frame $frame) {
+                return ! is_null($frame->class);
+            })
             ->search(function (Frame $frame) {
                 return Str::startsWith($frame->class, 'Illuminate\Database');
             });

@@ -24,12 +24,14 @@ use Spatie\LaravelRay\Payloads\ModelPayload;
 use Spatie\LaravelRay\Payloads\ResponsePayload;
 use Spatie\LaravelRay\Payloads\ViewPayload;
 use Spatie\LaravelRay\Watchers\CacheWatcher;
+use Spatie\LaravelRay\Watchers\DuplicateQueryWatcher;
 use Spatie\LaravelRay\Watchers\EventWatcher;
 use Spatie\LaravelRay\Watchers\ExceptionWatcher;
 use Spatie\LaravelRay\Watchers\HttpClientWatcher;
 use Spatie\LaravelRay\Watchers\JobWatcher;
 use Spatie\LaravelRay\Watchers\QueryWatcher;
 use Spatie\LaravelRay\Watchers\RequestWatcher;
+use Spatie\LaravelRay\Watchers\SlowQueryWatcher;
 use Spatie\LaravelRay\Watchers\ViewWatcher;
 use Spatie\LaravelRay\Watchers\Watcher;
 use Spatie\Ray\Client;
@@ -83,7 +85,7 @@ class Ray extends BaseRay
     }
 
     /**
-     * @param Model|iterable ...$models
+     * @param Model|iterable ...$model
      *
      * @return \Spatie\LaravelRay\Ray
      */
@@ -336,6 +338,45 @@ class Ray extends BaseRay
         return $this;
     }
 
+    public function slowQueries($milliseconds = 500, $callable = null)
+    {
+        return $this->showSlowQueries($milliseconds, $callable);
+    }
+
+    public function showSlowQueries($milliseconds = 500, $callable = null)
+    {
+        $watcher = app(SlowQueryWatcher::class)
+            ->setMinimumTimeInMilliseconds($milliseconds);
+
+        return $this->handleWatcherCallable($watcher, $callable);
+    }
+
+    public function stopShowingSlowQueries(): self
+    {
+        app(SlowQueryWatcher::class)->disable();
+
+        return $this;
+    }
+
+    /**
+     * @param null $callable
+     *
+     * @return \Spatie\LaravelRay\Ray
+     */
+    public function showDuplicateQueries($callable = null)
+    {
+        $watcher = app(DuplicateQueryWatcher::class);
+
+        return $this->handleWatcherCallable($watcher, $callable);
+    }
+
+    public function stopShowingDuplicateQueries(): self
+    {
+        app(DuplicateQueryWatcher::class)->disable();
+
+        return $this;
+    }
+
     /**
      * @param null $callable
      *
@@ -453,9 +494,7 @@ class Ray extends BaseRay
             return $this;
         }
 
-        $meta = [
-            'laravel_version' => app()->version(),
-        ];
+        $meta['laravel_version'] = app()->version();
 
         if (class_exists(InstalledVersions::class)) {
             try {

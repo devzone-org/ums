@@ -3,6 +3,7 @@
 namespace Spatie\LaravelRay;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Blade;
@@ -12,9 +13,12 @@ use Illuminate\Testing\TestResponse;
 use Spatie\LaravelRay\Commands\PublishConfigCommand;
 use Spatie\LaravelRay\Payloads\MailablePayload;
 use Spatie\LaravelRay\Payloads\ModelPayload;
+use Spatie\LaravelRay\Payloads\QueryPayload;
 use Spatie\LaravelRay\Watchers\ApplicationLogWatcher;
 use Spatie\LaravelRay\Watchers\CacheWatcher;
+use Spatie\LaravelRay\Watchers\DeprecatedNoticeWatcher;
 use Spatie\LaravelRay\Watchers\DumpWatcher;
+use Spatie\LaravelRay\Watchers\DuplicateQueryWatcher;
 use Spatie\LaravelRay\Watchers\EventWatcher;
 use Spatie\LaravelRay\Watchers\ExceptionWatcher;
 use Spatie\LaravelRay\Watchers\HttpClientWatcher;
@@ -22,6 +26,7 @@ use Spatie\LaravelRay\Watchers\JobWatcher;
 use Spatie\LaravelRay\Watchers\LoggedMailWatcher;
 use Spatie\LaravelRay\Watchers\QueryWatcher;
 use Spatie\LaravelRay\Watchers\RequestWatcher;
+use Spatie\LaravelRay\Watchers\SlowQueryWatcher;
 use Spatie\LaravelRay\Watchers\ViewWatcher;
 use Spatie\Ray\Client;
 use Spatie\Ray\PayloadFactory;
@@ -36,6 +41,7 @@ class RayServiceProvider extends ServiceProvider
         $this
             ->registerCommands()
             ->registerSettings()
+            ->setProjectName()
             ->registerBindings()
             ->registerWatchers()
             ->registerMacros()
@@ -68,12 +74,28 @@ class RayServiceProvider extends ServiceProvider
                 'send_jobs_to_ray' => env('SEND_JOBS_TO_RAY', false),
                 'send_log_calls_to_ray' => env('SEND_LOG_CALLS_TO_RAY', true),
                 'send_queries_to_ray' => env('SEND_QUERIES_TO_RAY', false),
+                'send_duplicate_queries_to_ray' => env('SEND_DUPLICATE_QUERIES_TO_RAY', false),
+                'send_slow_queries_to_ray' => env('SEND_SLOW_QUERIES_TO_RAY', false),
                 'send_requests_to_ray' => env('SEND_REQUESTS_TO_RAY', false),
                 'send_http_client_requests_to_ray' => env('SEND_HTTP_CLIENT_REQUESTS_TO_RAY', false),
                 'send_views_to_ray' => env('SEND_VIEWS_TO_RAY', false),
                 'send_exceptions_to_ray' => env('SEND_EXCEPTIONS_TO_RAY', true),
+                'send_deprecated_notices_to_ray' => env('SEND_DEPRECATED_NOTICES_TO_RAY', false),
             ]);
         });
+
+        return $this;
+    }
+
+    public function setProjectName(): self
+    {
+        if (Ray::$projectName === '') {
+            $projectName = config('app.name');
+
+            if ($projectName !== 'Laravel') {
+                ray()->project($projectName);
+            }
+        }
 
         return $this;
     }
@@ -115,10 +137,13 @@ class RayServiceProvider extends ServiceProvider
             EventWatcher::class,
             DumpWatcher::class,
             QueryWatcher::class,
+            DuplicateQueryWatcher::class,
+            SlowQueryWatcher::class,
             ViewWatcher::class,
             CacheWatcher::class,
             RequestWatcher::class,
             HttpClientWatcher::class,
+            DeprecatedNoticeWatcher::class,
         ];
 
         collect($watchers)
@@ -139,10 +164,13 @@ class RayServiceProvider extends ServiceProvider
             EventWatcher::class,
             DumpWatcher::class,
             QueryWatcher::class,
+            DuplicateQueryWatcher::class,
+            SlowQueryWatcher::class,
             ViewWatcher::class,
             CacheWatcher::class,
             RequestWatcher::class,
             HttpClientWatcher::class,
+            DeprecatedNoticeWatcher::class,
         ];
 
         collect($watchers)
@@ -177,6 +205,15 @@ class RayServiceProvider extends ServiceProvider
             $description === ''
                 ? ray($this->value)
                 : ray($description, $this->value);
+
+            return $this;
+        });
+
+
+        Builder::macro('ray', function () {
+            $payload = new QueryPayload($this);
+
+            ray()->sendRequest($payload);
 
             return $this;
         });
