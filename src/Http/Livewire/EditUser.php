@@ -70,7 +70,7 @@ class EditUser extends Component
     {
         $this->validate();
 
-            User::find(Auth::user()->id)
+            User::find($this->primary_id)
                 ->update([
                     'password' => Hash::make($this->password)
                 ]);
