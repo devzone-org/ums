@@ -13,10 +13,8 @@ class CheckTiming
 {
     public function handle($request, Closure $next)
     {
-
         $response = $next($request);
         $timing = Redis::get('user.schedule.' . Auth::id());
-
         if (!empty($timing)) {
             $timing = json_decode($timing, true);
             $day = collect($timing)->where('day', strtolower(date('l')))->first();
