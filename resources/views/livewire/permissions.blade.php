@@ -60,7 +60,7 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         {{ $loop->iteration }}
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" style="width: 40%; white-space: initial">
                         {{ ucwords($s['description']) }}
                     </td>
 
