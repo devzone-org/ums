@@ -19,15 +19,14 @@ class EditUser extends Component
     public $status;
     public $primary_id;
 
-    protected  $rules = [
+    protected $rules = [
         'email' => 'required',
         'name' => 'required',
-        'password' => 'min:6',
-        'password_confirmation' => 'required_with:password|same:password'
+
     ];
 
 
-    protected  $validationAttributes = [
+    protected $validationAttributes = [
         'email' => 'Email',
         'name' => 'Name',
         'password' => 'Password',
@@ -38,9 +37,9 @@ class EditUser extends Component
     {
         $this->primary_id = $id;
         $user = User::find($id);
-        $this->name  =$user->name;
-        $this->email  =$user->email;
-        $this->status  =$user->status;
+        $this->name = $user->name;
+        $this->email = $user->email;
+        $this->status = $user->status;
 
     }
 
@@ -53,7 +52,7 @@ class EditUser extends Component
     {
         $this->validate();
 
-        if (User::where('email', $this->email)->where('id','!=' ,$this->primary_id)->exists()) {
+        if (User::where('email', $this->email)->where('id', '!=', $this->primary_id)->exists()) {
             $this->addError('email', 'This email already in use.');
         } else {
             User::find($this->primary_id)->update([
@@ -68,18 +67,19 @@ class EditUser extends Component
 
     public function editPass()
     {
-        $this->validate();
+        $this->validate([
+            'password' => 'min:6',
+            'password_confirmation' => 'required_with:password|same:password'
+            ]);
 
-            User::find($this->primary_id)
-                ->update([
-                    'password' => Hash::make($this->password)
-                ]);
+        User::find($this->primary_id)
+            ->update([
+                'password' => Hash::make($this->password)
+            ]);
 
-            $this->success = 'Password has been updated.';
-            $this->reset(['password', 'password_confirmation']);
-        }
-
-
+        $this->success = 'Password has been updated.';
+        $this->reset(['password', 'password_confirmation']);
+    }
 
 
 }

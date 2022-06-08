@@ -11,6 +11,7 @@ use Devzone\UserManagement\Http\Livewire\Permission;
 use Devzone\UserManagement\Http\Livewire\Profile;
 use Devzone\UserManagement\Http\Livewire\Schedule;
 use Devzone\UserManagement\Http\Livewire\Users;
+use Devzone\UserManagement\Http\Middleware\CheckStatus;
 use Devzone\UserManagement\Http\Middleware\CheckTiming;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,7 @@ class UserManagementServiceProvider extends ServiceProvider
 
         $kernel = $this->app->make(Kernel::class);
         $kernel->pushMiddleware(CheckTiming::class);
+        $kernel->pushMiddleware(CheckStatus::class);
 
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'devzone');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'ums');
