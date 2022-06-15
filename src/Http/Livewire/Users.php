@@ -33,7 +33,7 @@ class Users extends Component
     public function search(){
 
 
-        $this->users = User::when(!empty($this->status),function ($q){
+        $this->users = User::whereIn('type', ['admin', '', null])->when(!empty($this->status),function ($q){
             return $q->where('status', $this->status);
         })->when(!empty($this->email),function ($q){
             return $q->where('email', $this->email);
