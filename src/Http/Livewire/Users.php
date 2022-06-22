@@ -33,7 +33,9 @@ class Users extends Component
     public function search(){
 
 
-        $this->users = User::whereIn('type', ['admin', '', null])->when(!empty($this->status),function ($q){
+        $this->users = User::where(function ($q){
+            return $q->whereNull('type')->orwhereIn('type',['admin','']);
+        })->when(!empty($this->status),function ($q){
             return $q->where('status', $this->status);
         })->when(!empty($this->email),function ($q){
             return $q->where('email', $this->email);
@@ -42,6 +44,10 @@ class Users extends Component
         })
             ->get();
 
+    }
+    public function clear(){
+
+        $this->reset(['status','email','name']);
     }
 
     public function linkToAccounts($id)
