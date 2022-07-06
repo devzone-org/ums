@@ -23,7 +23,7 @@ class CheckStatus
 
         if (Auth::check()) {
             if ($request->user()->status == 'f') {
-                return redirect()->to('logout');
+                return redirect()->to('ums/ums/logout');
             } else {
                 return $response;
             }

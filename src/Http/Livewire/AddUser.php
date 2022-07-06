@@ -36,6 +36,7 @@ class AddUser extends Component
             'name' => $this->name,
             'email' => $this->email,
             'status' => $this->status,
+            'type' => 'admin',
             'password' => Hash::make($this->password)
         ]);
 
