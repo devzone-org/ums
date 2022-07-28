@@ -9,12 +9,16 @@ use Spatie\Permission\Models\Permission;
 
 Route::middleware(['auth'])->group(function () {
 
+
     Route::get('/', function () {
         return view('ums::profile');
     });
 
 
     Route::get('change-password', function () {
+        if (Auth::user()->type == 'student'){
+            return redirect()->to('student/dashboard');
+        }
         return view('ums::change-password');
     });
 
