@@ -21,7 +21,7 @@ class Permission extends Component
     {
         $this->user_id = $id;
         $this->user = User::find($id);
-        $this->permissions = \Spatie\Permission\Models\Permission::get()->toArray();
+        $this->permissions = \Spatie\Permission\Models\Permission::where('portal','!=', 'teacher_management')->get()->toArray();
     }
 
     public function render()
