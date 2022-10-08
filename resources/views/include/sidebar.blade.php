@@ -31,6 +31,14 @@
         </span>
         </a>
 
+        <a href="{{ url('ums/permissions-list') }}"
+           class="{{ (Request::segment(1) == 'ums'  &&  (Request::segment(2) == 'permissions-list' || Request::segment(2) == 'permission-detail') ) ? $current : $default  }} group rounded-md px-3 py-2 flex items-center text-sm font-medium"
+           aria-current="page">
+            <span class="truncate">
+          Permissions
+        </span>
+        </a>
+
 
     </nav>
 </aside>

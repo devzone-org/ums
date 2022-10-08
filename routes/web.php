@@ -16,7 +16,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::get('change-password', function () {
-        if (Auth::user()->type == 'student'){
+        if (Auth::user()->type == 'student') {
             return redirect()->to('student/dashboard');
         }
         return view('ums::change-password');
@@ -38,18 +38,28 @@ Route::middleware(['auth'])->group(function () {
     Route::get('users/edit/{id}', function ($id) {
         return view('ums::edit-user', compact('id'));
     });
+
+
+    Route::get('permissions-list', function () {
+        return view('ums::permissions-list');
+    });
+
+    Route::get('permission-detail/{id}', function ($id) {
+        return view('ums::permission-detail', compact('id'));
+    });
+
 });
 
 Route::get('login', function () {
     return view('ums::login');
 });
 
-Route::get('ums/logout', [\Devzone\UserManagement\Http\Controllers\LogoutController::class , 'destroy']);
+Route::get('ums/logout', [\Devzone\UserManagement\Http\Controllers\LogoutController::class, 'destroy']);
 
 
-Route::get('super-admin',function (){
+Route::get('super-admin', function () {
     $user = User::find(1);
-    foreach (Permission::get() as $p){
+    foreach (Permission::get() as $p) {
         $user->givePermissionTo($p->name);
     }
 });

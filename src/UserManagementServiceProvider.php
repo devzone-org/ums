@@ -4,6 +4,8 @@ namespace Devzone\UserManagement;
 
 use Devzone\UserManagement\Console\DumpMasterData;
 use Devzone\UserManagement\Http\Livewire\AddUser;
+use Devzone\UserManagement\Http\Livewire\PermissionDetail;
+use Devzone\UserManagement\Http\Livewire\PermissionsList;
 use Devzone\UserManagement\Http\Livewire\ChangePassword;
 use Devzone\UserManagement\Http\Livewire\EditUser;
 use Devzone\UserManagement\Http\Livewire\IPWhitelist;
@@ -71,6 +73,8 @@ class UserManagementServiceProvider extends ServiceProvider
         Livewire::component('ip-restriction', IPWhitelist::class);
         Livewire::component('schedule', Schedule::class);
         Livewire::component('permission', Permission::class);
+        Livewire::component('permissions-list', PermissionsList::class);
+        Livewire::component('permission-detail', PermissionDetail::class);
     }
 
     /**
