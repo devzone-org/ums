@@ -2,7 +2,7 @@
 
     <div class="shadow sm:rounded-md sm:overflow-hidden">
         <div class="bg-white py-4 px-4 space-y-4 sm:p-4">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">Permission</h3>
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Permission</h3>
         </div>
 
 
@@ -21,21 +21,21 @@
             </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                        style="width: 40%; white-space: initial">
-                        {{ ucwords($permission['description']) }}
-                    </td>
+            <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                    style="width: 40%; white-space: initial">
+                    {{ ucwords($permission['description']) }}
+                </td>
 
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ ucwords($permission['portal']) }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ ucwords($permission['section']) }}
-                    </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ ucwords($permission['portal']) }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ ucwords($permission['section']) }}
+                </td>
 
 
-                </tr>
+            </tr>
             </tbody>
         </table>
 
@@ -45,8 +45,10 @@
 
     <form wire:submit.prevent="search()">
         <div class="shadow sm:rounded-md sm:overflow-hidden">
+            <div class="bg-white py-4 px-4 space-y-4 sm:p-4 border-b">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Search Users</h3>
+            </div>
             <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
-
 
                 <div class="grid grid-cols-6 gap-6 ">
                     <div class="col-span-6 sm:col-span-2">
@@ -221,7 +223,8 @@
                     <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                         <div class="bg-white p-4 flex justify-between items-center">
                             <h3 class="text-lg leading-6 font-medium  align-middle text-gray-900">Unassigned Users <span
-                                        class="text-indigo-500 text-sm">( Total #{{count($unassigned_users)}} )</span></h3>
+                                        class="text-indigo-500 text-sm">( Total #{{count($unassigned_users)}} )</span>
+                            </h3>
 
                         </div>
 
