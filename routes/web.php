@@ -39,13 +39,14 @@ Route::middleware(['auth'])->group(function () {
         return view('ums::edit-user', compact('id'));
     });
 
+    Route::group(['middleware' => ['can:1.user-permission']], function () {
+        Route::get('permissions-list', function () {
+            return view('ums::permissions-list');
+        });
 
-    Route::get('permissions-list', function () {
-        return view('ums::permissions-list');
-    });
-
-    Route::get('permission-detail/{id}', function ($id) {
-        return view('ums::permission-detail', compact('id'));
+        Route::get('permission-detail/{id}', function ($id) {
+            return view('ums::permission-detail', compact('id'));
+        });
     });
 
 });
