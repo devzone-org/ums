@@ -55,6 +55,9 @@ Route::get('login', function () {
     return view('ums::login');
 });
 
+Route::post('ums/auth',[\Devzone\UserManagement\Http\Controllers\AuthController::class, 'store']);
+
+
 Route::get('ums/logout', [\Devzone\UserManagement\Http\Controllers\LogoutController::class, 'destroy']);
 
 
