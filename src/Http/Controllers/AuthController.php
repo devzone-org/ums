@@ -25,11 +25,11 @@ class AuthController
         if (Auth::attempt($credentials)) {
             // Authentication passed...
             return redirect()->intended('dashboard');
+        }else{
 
             throw ValidationException::withMessages([
                 'email' => __('User credentials do not match our records.'),
             ]);
-
         }
 
         $request->session()->regenerate();
