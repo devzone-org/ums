@@ -10,7 +10,8 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController
 {
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         $request->validate([
             'email' => 'required',
@@ -18,39 +19,20 @@ class AuthController
         ]);
 
 
-        $user = User::where('email', $request['email'])->first();
 
-        if (empty($user)){
-
-            throw ValidationException::withMessages([
-                'email' => __('User credentials do not match our records.'),
-            ]);
-        }
-
-        if(Hash::check($request['password'], $user->password)){
-
-            if ($user->status == 'f'){
-
-                throw ValidationException::withMessages([
-                    'email' => __('User credentials do not match our records.'),
-                ]);
-            }
-
-            $request->session()->regenerate();
-
+        $credentials = $request->only('email', 'password');
+        $credentials['status'] = 't';
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
             return redirect()->intended('dashboard');
 
-        }else{
-
             throw ValidationException::withMessages([
                 'email' => __('User credentials do not match our records.'),
             ]);
 
-            return redirect()->to('login');
         }
 
+        $request->session()->regenerate();
+
     }
-
-
-
 }
