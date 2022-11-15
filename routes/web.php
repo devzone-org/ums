@@ -52,11 +52,14 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('login', function () {
-    return view('ums::login');
+    if (env('UMS_LOGIN') == 'true') {
+        return view('ums::login');
+    } else {
+        return redirect()->back();
+    }
 });
 
-Route::post('ums/auth',[\Devzone\UserManagement\Http\Controllers\AuthController::class, 'store']);
-
+Route::post('ums/auth', [\Devzone\UserManagement\Http\Controllers\AuthController::class, 'store']);
 
 Route::get('ums/logout', [\Devzone\UserManagement\Http\Controllers\LogoutController::class, 'destroy']);
 

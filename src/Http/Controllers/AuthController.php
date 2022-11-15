@@ -24,6 +24,7 @@ class AuthController
         $credentials['status'] = 't';
         if (Auth::attempt($credentials)) {
             // Authentication passed...
+            $request->session()->regenerate();
             return redirect()->intended('dashboard');
         }else{
 
@@ -32,7 +33,6 @@ class AuthController
             ]);
         }
 
-        $request->session()->regenerate();
 
     }
 }

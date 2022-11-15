@@ -37,7 +37,6 @@
             </h2>
         </div>
 
-
         @if ($errors->any())
             <div class="p-4 mb-4 rounded-md bg-red-50">
                 <div class="flex">
