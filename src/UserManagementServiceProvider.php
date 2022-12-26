@@ -10,6 +10,7 @@ use Devzone\UserManagement\Http\Livewire\ChangePassword;
 use Devzone\UserManagement\Http\Livewire\EditUser;
 use Devzone\UserManagement\Http\Livewire\IPWhitelist;
 use Devzone\UserManagement\Http\Livewire\Permission;
+use Devzone\UserManagement\Http\Livewire\PermissionTr;
 use Devzone\UserManagement\Http\Livewire\Profile;
 use Devzone\UserManagement\Http\Livewire\Schedule;
 use Devzone\UserManagement\Http\Livewire\Users;
@@ -75,6 +76,7 @@ class UserManagementServiceProvider extends ServiceProvider
         Livewire::component('permission', Permission::class);
         Livewire::component('permissions-list', PermissionsList::class);
         Livewire::component('permission-detail', PermissionDetail::class);
+        Livewire::component('permission-tr', PermissionTr::class);
     }
 
     /**
