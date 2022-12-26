@@ -21,7 +21,7 @@ class Permission extends Component
     {
         $this->user_id = $id;
         $this->user = User::find($id);
-        $this->permissions = \Spatie\Permission\Models\Permission::where('portal','!=', 'teacher_management')->orderBy('section')->get()->toArray();
+        $this->permissions = \Spatie\Permission\Models\Permission::where('portal', '!=', 'teacher_management')->orderBy('portal')->orderBy('section')->get()->toArray();
     }
 
     public function render()
@@ -32,9 +32,9 @@ class Permission extends Component
     public function updatedKeyword($value)
     {
 
-        $this->permissions = \Spatie\Permission\Models\Permission::when(!empty($value),function($q) use ($value) {
+        $this->permissions = \Spatie\Permission\Models\Permission::when(!empty($value), function ($q) use ($value) {
 
-                    return $q->orWhere('name','LIKE','%'.$value.'%')->orWhere('section','LIKE','%'.$value.'%')->orWhere('portal','LIKE','%'.$value.'%');
+            return $q->orWhere('name', 'LIKE', '%' . $value . '%')->orWhere('section', 'LIKE', '%' . $value . '%')->orWhere('portal', 'LIKE', '%' . $value . '%');
 
         })->get()->toArray();
 
@@ -44,7 +44,6 @@ class Permission extends Component
     {
         $this->user->givePermissionTo($name);
     }
-
 
 
     public function revoke($name)
