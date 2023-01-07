@@ -33,7 +33,7 @@ class Permission extends Component
         $permissions = \Spatie\Permission\Models\Permission::when(!empty($this->portal), function ($q) {
             return $q->where('portal', $this->portal);
         })->when(!empty($this->keyword), function ($q) {
-            return $q->orWhere('name', 'LIKE', '%' . $this->keyword . '%')->orWhere('section', 'LIKE', '%' . $this->keyword . '%');
+            return $q->where('name', 'LIKE', '%' . $this->keyword . '%')->orWhere('section', 'LIKE', '%' . $this->keyword . '%');
         })->orderBy('portal')->orderBy('section')->paginate(30);
 
         return view('ums::livewire.permissions', compact('permissions'));
