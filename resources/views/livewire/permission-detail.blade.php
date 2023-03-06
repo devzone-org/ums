@@ -1,48 +1,5 @@
 <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
 
-    <div class="shadow sm:rounded-md sm:overflow-hidden">
-        <div class="bg-white py-4 px-4 space-y-4 sm:p-4">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">Permission</h3>
-        </div>
-
-
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-            <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Name
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Portal
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Section
-                </th>
-            </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-            <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                    style="width: 40%; white-space: initial">
-                    {{ ucwords($permission['description']) }}
-                </td>
-
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {{ ucwords($permission['portal']) }}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {{ ucwords($permission['section']) }}
-                </td>
-
-
-            </tr>
-            </tbody>
-        </table>
-
-
-    </div>
-
-
     <form wire:submit.prevent="search()">
         <div class="shadow sm:rounded-md sm:overflow-hidden">
             <div class="bg-white py-4 px-4 space-y-4 sm:p-4 border-b">
@@ -87,6 +44,47 @@
             </div>
         </div>
     </form>
+
+    <div class="shadow sm:rounded-md sm:overflow-hidden">
+        <div class="bg-white py-4 px-4 space-y-4 sm:p-4">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Permission</h3>
+        </div>
+
+
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Name
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Portal
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Section
+                </th>
+            </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+            <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                    style="width: 40%; white-space: initial">
+                    {{ ucwords($permission['description']) }}
+                </td>
+
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ ucwords($permission['portal']) }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ ucwords($permission['section']) }}
+                </td>
+
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 
     <div class="shadow sm:rounded-md sm:overflow-hidden">
 
