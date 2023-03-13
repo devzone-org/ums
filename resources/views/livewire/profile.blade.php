@@ -18,6 +18,18 @@
                                    class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                         </div>
                     </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                        <label for="father-name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            Father Name
+                        </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+                            <input type="text" wire:model.lazy="user.father_name" id="father-name"
+                                   autocomplete="given-name"
+                                   class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                        </div>
+                    </div>
+
                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                         <label for="email" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                             Email
@@ -42,7 +54,7 @@
                                     <span class="h-12 w-12 rounded-full overflow-hidden bg-gray-100">
                   <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
                     <path
-                        d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                            d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
                   </svg>
                 </span>
                                 @endif
@@ -62,7 +74,7 @@
 
                     @if(config('user-management.link_user_account'))
                         <div
-                            class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                                class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                             <label for="email" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                                 Receivable Account
                             </label>

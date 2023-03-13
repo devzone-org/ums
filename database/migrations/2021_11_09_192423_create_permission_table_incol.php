@@ -28,7 +28,7 @@ class CreatePermissionTableIncol extends Migration
     public function down()
     {
         Schema::table('permissions', function (Blueprint $table) {
-            //
+            $table->dropColumn('description','portal','section');
         });
     }
 }

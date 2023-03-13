@@ -110,6 +110,12 @@
 
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Father Name
+                                </th>
+
+
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Email
                                 </th>
                                 <th scope="col"
@@ -135,6 +141,11 @@
                                     </td>
 
                                     <td class="px-6 py-4 text-sm whitespace-nowrap">
+                                        {{ $u->father_name ?? '-' }}
+                                    </td>
+
+
+                                    <td class="px-6 py-4 text-sm whitespace-nowrap">
                                         {{ $u->email }}
                                     </td>
 
@@ -142,13 +153,13 @@
                                         @if($u->status == 't')
                                             <span
                                                     class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                  Active
-                </span>
+                                              Active
+                                            </span>
                                         @else
                                             <span
                                                     class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                  Inactive
-                </span>
+                                              Inactive
+                                            </span>
                                         @endif
                                     </td>
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnTousersTable extends Migration
+class AddFatherNameInUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,7 @@ class AddColumnTousersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('account_id')->nullable();
-            $table->string('account_name')->nullable();
-            $table->string('attachment')->nullable();
-            $table->string('status')->default('f');
+            $table->string('father_name', 100)->after('name')->nullable();
         });
     }
 
@@ -29,7 +26,7 @@ class AddColumnTousersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('account_id','account_name','attachment','status');
+            $table->dropColumn("father_name");
         });
     }
 }

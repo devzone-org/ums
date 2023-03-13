@@ -52,7 +52,8 @@ class Profile extends Component
 
         User::find($this->user['id'])->update([
             'attachment' => $this->user['attachment'],
-            'name' => $this->user['name']
+            'name' => $this->user['name'],
+            'father_name' => $this->user['father_name'],
         ]);
 
         $this->success = "Profile has been updated.";

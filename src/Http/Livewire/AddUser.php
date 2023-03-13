@@ -15,6 +15,7 @@ class AddUser extends Component
     public $name;
     public $email;
     public $password_confirmation;
+    public $father_name;
     public $success;
     public $status;
 
@@ -34,6 +35,7 @@ class AddUser extends Component
         $this->validate();
         User::create([
             'name' => $this->name,
+            'father_name' => $this->father_name,
             'email' => $this->email,
             'status' => $this->status,
             'type' => 'admin',
@@ -41,7 +43,7 @@ class AddUser extends Component
         ]);
 
         $this->success = 'User has been created.';
-        $this->reset(['name', 'email', 'status', 'password']);
+        $this->reset(['name', 'email', 'status', 'password','father_name']);
     }
 
 
