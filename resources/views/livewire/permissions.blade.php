@@ -36,55 +36,60 @@
             </div>
             @include('ums::include.messages')
         </div>
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50 px-4">
-            <tr>
-                <th scope="col" class="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    User Name
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    User Email
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    User Status
-                </th>
-            </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-            <tr>
-                <td class="px-7 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {{ucwords($user->name)}}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {{$user->email}}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    @if($user->status == 't')
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                            Active
-                        </span>
-                    @else
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                            Inactive
-                        </span>
-                    @endif
-                </td>
-            </tr>
-            <tr>
-                <td class="px-7 py-4 whitespace-nowrap text-sm text-gray-500"></td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50 px-4">
+                <tr>
+                    <th scope="col"
+                        class="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        User Name
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        User Email
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        User Status
+                    </th>
+                </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                <tr>
+                    <td class="px-7 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {{ucwords($user->name)}}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {{$user->email}}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        @if($user->status == 't')
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+              Active
+            </span>
+                        @else
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+              Inactive
+            </span>
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-7 py-4 whitespace-nowrap text-sm text-gray-500"></td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="flex flex-col">
             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full align-middle md:px-6 lg:px-8 ">
                     <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5">
                         <form wire:submit.prevent="savePermissionsData">
                             <div class="px-4 py-6 space-y-6 bg-white sm:p-6 sm:pt-0">
-                                <div class="flex justify-between gap-x-4">
-                                    <div class="w-1/2">
+                                <div class="flex flex-col sm:flex-row  lg:gap-x-4 md:gap-x-4 sm:gap-y-4">
+                                    <div class="w-full">
                                         <div class="bg-red-600 text-red-100 font-bold rounded p-5 justify-center items-center">
                                             List of all unassigned permissions.
                                         </div>
@@ -109,7 +114,7 @@
                                             <select wire:model="adding_permissions_ids"
                                                     id="adding_permissions_ids"
                                                     multiple
-                                                    class="h-72 block w-full px-3 py-4 border border-gray-100 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                    class="overflow-x-auto h-72 block w-full px-3 py-4 border border-gray-100 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                 @if(!empty($unassigned_permissions))
                                                     @foreach(collect($unassigned_permissions)->groupBy('section')->toArray() as $x => $un_per)
                                                         <optgroup label="{{ucwords(str_replace('_', ' ', $x))}}">
@@ -125,7 +130,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="w-1/2">
+                                    <div class="w-full">
                                         <div class="bg-green-600 text-green-100 font-bold rounded p-5 justify-center items-center">
                                             List of all assigned permissions.
                                         </div>
@@ -149,7 +154,7 @@
                                             <label for="removing_permissions_ids" class="sr-only"></label>
                                             <select wire:model="removing_permissions_ids" id="removing_permissions_ids"
                                                     multiple
-                                                    class="h-72 block w-full px-3 py-4 border border-gray-100 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                    class="overflow-x-auto h-72 block w-full px-3 py-4 border border-gray-100 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
 
                                                 @if(!empty($assigned_permissions))
                                                     @foreach(collect($assigned_permissions)->groupBy('section')->toArray() as $y => $per)
@@ -165,7 +170,6 @@
                                             </select>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
 
