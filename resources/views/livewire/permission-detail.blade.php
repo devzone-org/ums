@@ -1,3 +1,218 @@
+@if(env('UMS_BOOTSTRAP') == 'true')
+
+    <div class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col">
+                    <div class="card card-primary card-outline">
+
+                        <div class="card-header">
+                            <h5 class="card-title">Search Users</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <form wire:submit.prevent="search()">
+                                <div class="row">
+                                    @if(!empty($success))
+                                        <div class="col-12">
+                                            <div class="alert alert-success alert-dismissible">
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                        aria-hidden="true">
+                                                    ×
+                                                </button>
+                                                {{ $success }}
+                                            </div>
+                                        </div>
+                                    @endif
+                                    <div class="col-sm-12 col-xs-12 no-padding">
+                                        <div class="row">
+
+                                            <div class="col-xs-6 col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="email">Email</label>
+                                                    <input type="email" wire:model.defer="email" id="email" autocomplete="off"
+                                                           class="form-control  @error('email')  is-invalid @enderror">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-6 col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="name">Name</label>
+                                                    <input type="text" wire:model.defer="name" id="name"
+                                                           autocomplete="off"
+                                                           class="form-control year @error('name')  is-invalid @enderror">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-6 col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="status">Status</label>
+                                                    <select wire:model.defer="status" id="status"
+                                                            class="custom-select  @error('status')  is-invalid @enderror">
+                                                        <option value=""></option>
+                                                        <option value="t">Active</option>
+                                                        <option value="f">Inactive</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-6 col-sm-4">
+                                                <div class="form-group">
+                                                    <button type="button" wire:click="clear" class="btn btn-danger"
+                                                            wire:loading.attr="disabled">Reset
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary"
+                                                            wire:loading.attr="disabled">Search
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h5 class="card-title">Permission</h5>
+                        </div>
+                        <div class="card-body table-responsive p-0">
+
+                            <table class="table table-sm">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Portal</th>
+                                    <th>Section</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="align-middle">{{ ucwords($permission['description']) }}</td>
+                                        <td class="align-middle">{{ ucwords($permission['portal']) }}</td>
+                                        <td class="align-middle">{{ ucwords($permission['section']) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                Assigned Users
+                                <span class="text-primary text-sm">( Total #{{count($assigned_users)}} )</span>
+                            </h5>
+                        </div>
+                        <div class="card-body table-responsive p-0">
+
+                            <table class="table   table-striped table-sm  ">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($assigned_users as $u)
+                                    <tr>
+                                        <td class="align-middle">{{ $loop->iteration }}</td>
+                                        <td class="align-middle">{{ $u['name'] }}</td>
+                                        <td class="align-middle">{{ $u['email'] }}</td>
+                                        <td class="align-middle">
+                                            @if($u['status'] == 't')
+                                                <span class="badge bg-success text-sm">Active</span>
+                                            @else
+                                                <span class="badge bg-danger text-sm">In-active</span>
+                                            @endif
+                                        </td>
+                                        <td class="align-middle">
+                                            <a wire:click="revoke('{{ $u['id'] }}')" class="text-danger" style="cursor: pointer">
+                                                Revoke
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                Unassigned Users
+                                <span class="text-primary text-sm">( Total #{{count($unassigned_users)}} )</span>
+                            </h5>
+                        </div>
+                        <div class="card-body table-responsive p-0">
+
+                            <table class="table   table-striped table-sm  ">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($unassigned_users as $u)
+                                    <tr>
+                                        <td class="align-middle">{{ $loop->iteration }}</td>
+                                        <td class="align-middle">{{ $u['name'] }}</td>
+                                        <td class="align-middle">{{ $u['email'] }}</td>
+                                        <td class="align-middle">
+                                            @if($u['status'] == 't')
+                                                <span class="badge bg-success text-sm">Active</span>
+                                            @else
+                                                <span class="badge bg-danger text-sm">In-active</span>
+                                            @endif
+                                        </td>
+                                        <td class="align-middle">
+                                            <a wire:click="assign('{{ $u['id'] }}')" class="text-success" style="cursor: pointer">
+                                                Assign
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+@else
 <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
 
     <form wire:submit.prevent="search()">
@@ -300,3 +515,4 @@
     </div>
 
 </div>
+@endif
