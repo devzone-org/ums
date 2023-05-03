@@ -54,11 +54,35 @@
                             <h5 class="card-title">Permissions</h5>
                         </div>
 
-                        <div class="card-body">
+                        <div class="card-body px-0">
                             <div class="row">
-                                <div class="col px-1">
+                                @if(!empty($success))
+                                    <div class="col-12">
+                                        <div class="alert alert-success alert-dismissible">
+                                            <button type="button" class="close" data-dismiss="alert"
+                                                    aria-hidden="true">
+                                                ×
+                                            </button>
+                                            {{ $success }}
+                                        </div>
+                                    </div>
+                                @endif
+                                @if($errors->any())
+                                    <div class="col-12">
+                                        <div class="alert alert-danger alert-dismissible">
+                                            <button type="button" class="close" data-dismiss="alert"
+                                                    aria-hidden="true">
+                                                ×
+                                            </button>
+                                            @foreach($errors->all() as $error)
+                                                <li>{{$error}}</li>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+                                <div class="col">
                                     <div class="card-body table-responsive p-0">
-                                        <table class="table table-striped table-sm">
+                                        <table class="table">
                                             <thead>
                                             <tr>
                                                 <th>User Name</th>
@@ -80,18 +104,18 @@
                                             </tr>
                                             </tbody>
                                         </table>
+                                        <hr class="mt-0 pt-0">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-
-                        <div class="col-xs-10 w-100">
+                        <div class="col-xs-12 w-100">
                             <form wire:submit.prevent="savePermissionsData">
                                 <div class="d-flex">
-                                    <div class="col-xs-5 w-50 px-3 pt-1">
+                                    <div class="col-xs-6 w-50 pl-3 px-2 pt-0">
 
-                                        <div class="alert alert-danger p-4">
+                                        <div class="alert alert-danger p-4 mb-0">
                                             <strong>List of all unassigned permissions.</strong>
                                         </div>
                                         <div class="divider d-flex justify-content-center">
@@ -108,15 +132,18 @@
                                         </div>
                                         <div class="form-group w-100">
                                             <input type="text" wire:model.debounce.500ms="unassigned_keyword"
-                                                   autocomplete="given-name" class="w-100 rounded">
+                                                   autocomplete="given-name" class="w-100 border mb-1 py-1 rounded">
                                             <select wire:model="adding_permissions_ids"
                                                     id="adding_permissions_ids"
-                                                    multiple size="15" id="section_list" class="w-100">
+                                                    multiple size="30" id="section_list"
+                                                    class="w-100 px-2 border stripe" style="height: 800px">
                                                 @if(!empty($unassigned_permissions))
                                                     @foreach(collect($unassigned_permissions)->groupBy('section')->toArray() as $x => $un_per)
-                                                        <optgroup label="{{ucwords(str_replace('_', ' ', $x))}}">
+                                                        <optgroup class="py-1"
+                                                                  label="{{ucwords(str_replace('_', ' ', $x))}}">
                                                             @foreach(collect($un_per)->sortBy('description') as $data1)
-                                                                <option value="{{$data1['name']}}">
+                                                                <option class="py-1 {{$loop->first ? 'mt-2' : ''}}"
+                                                                        value="{{$data1['name']}}">
                                                                     {{$loop->iteration . "."}} {{ucwords($data1['description'])}}
                                                                 </option>
                                                             @endforeach
@@ -127,9 +154,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-5 w-50 px-3 pt-1">
+                                    <div class="col-xs-6 w-50 pr-3 px-2 pt-0">
 
-                                        <div class="alert alert-success p-4">
+                                        <div class="alert alert-success p-4 mb-0">
                                             <strong>List of all unassigned permissions.</strong>
                                         </div>
                                         <div class="divider d-flex justify-content-center">
@@ -146,15 +173,18 @@
                                         </div>
                                         <div class="form-group">
                                             <input type="text" wire:model.debounce.500ms="assigned_keyword"
-                                                   autocomplete="given-name" class="w-100 rounded">
+                                                   autocomplete="given-name" class="w-100 border mb-1 py-1 rounded">
                                             <select wire:model="removing_permissions_ids"
                                                     id="removing_permissions_ids"
-                                                    multiple size="15" class="w-100">
+                                                    multiple size="30" class="w-100 px-2 border stripe"
+                                                    style="height: 800px">
                                                 @if(!empty($assigned_permissions))
                                                     @foreach(collect($assigned_permissions)->groupBy('section')->toArray() as $y => $per)
-                                                        <optgroup label="{{ucwords(str_replace('_', ' ', $y))}}">
+                                                        <optgroup class="py-1"
+                                                                  label="{{ucwords(str_replace('_', ' ', $y))}}">
                                                             @foreach(collect($per)->sortBy('description') as $data2)
-                                                                <option value="{{$data2['name']}}">
+                                                                <option class="py-1 {{$loop->first ? 'mt-2' : ''}}"
+                                                                        value="{{$data2['name']}}">
                                                                     {{$loop->iteration . "."}} {{ucwords($data2['description'])}}
                                                                 </option>
                                                             @endforeach
@@ -302,12 +332,15 @@
                                                 <select wire:model="adding_permissions_ids"
                                                         id="adding_permissions_ids"
                                                         multiple
-                                                        class="h-72 block w-full px-3 py-4 border border-gray-100 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                        class="h-96 block w-full px-3 py-4 border border-gray-100 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm stripe"
+                                                        style="height: 800px">
                                                     @if(!empty($unassigned_permissions))
                                                         @foreach(collect($unassigned_permissions)->groupBy('section')->toArray() as $x => $un_per)
-                                                            <optgroup label="{{ucwords(str_replace('_', ' ', $x))}}">
+                                                            <optgroup class="py-1"
+                                                                      label="{{ucwords(str_replace('_', ' ', $x))}}">
                                                                 @foreach(collect($un_per)->sortBy('description') as $data1)
-                                                                    <option value="{{$data1['name']}}">
+                                                                    <option class="py-1 {{$loop->first ? 'mt-2' : ''}}"
+                                                                            value="{{$data1['name']}}">
                                                                         {{$loop->iteration . "."}} {{ucwords($data1['description'])}}
                                                                     </option>
                                                                 @endforeach
@@ -343,13 +376,16 @@
                                                 <select wire:model="removing_permissions_ids"
                                                         id="removing_permissions_ids"
                                                         multiple
-                                                        class="h-72 block w-full px-3 py-4 border border-gray-100 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                        class="h-96 block w-full px-3 py-4 border border-gray-100 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm stripe"
+                                                        style="height: 800px">
 
                                                     @if(!empty($assigned_permissions))
                                                         @foreach(collect($assigned_permissions)->groupBy('section')->toArray() as $y => $per)
-                                                            <optgroup label="{{ucwords(str_replace('_', ' ', $y))}}">
+                                                            <optgroup class="py-1"
+                                                                      label="{{ucwords(str_replace('_', ' ', $y))}}">
                                                                 @foreach(collect($per)->sortBy('description') as $data2)
-                                                                    <option value="{{$data2['name']}}">
+                                                                    <option class="py-1 {{$loop->first ? 'mt-2' : ''}}"
+                                                                            value="{{$data2['name']}}">
                                                                         {{$loop->iteration . "."}} {{ucwords($data2['description'])}}
                                                                     </option>
                                                                 @endforeach

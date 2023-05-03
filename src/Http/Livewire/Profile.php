@@ -19,11 +19,19 @@ class Profile extends Component
     public $photo;
     public $success;
 
-    protected $rules = [
-        'user.name' => 'required',
-        'photo' => 'image|max:1024|dimensions:min_width=100,min_height=100'
-    ];
-
+    protected function rules()
+    {
+        if (empty($this->user['attachment']) || !empty($this->photo)) {
+            return [
+                'user.name' => 'required',
+                'photo' => 'image|max:1024|dimensions:min_width=100,min_height=100'
+            ];
+        } else {
+            return [
+                'user.name' => 'required',
+            ];
+        }
+    }
 
     public function updatedPhoto()
     {

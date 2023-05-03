@@ -26,12 +26,10 @@ class Users extends Component
     public function render()
     {
        $this->search();
-
         return view('ums::livewire.users');
     }
 
     public function search(){
-
 
         $this->users = User::where(function ($q){
             return $q->whereNull('type')->orwhereIn('type',['admin','']);
@@ -86,7 +84,7 @@ class Users extends Component
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->addError('success',$e->getMessage());
+            $this->addError('error',$e->getMessage());
         }
     }
 

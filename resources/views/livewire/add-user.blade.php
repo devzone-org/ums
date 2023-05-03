@@ -24,6 +24,19 @@
                                             </div>
                                         </div>
                                     @endif
+                                    @if($errors->any())
+                                        <div class="col-12">
+                                            <div class="alert alert-danger alert-dismissible">
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                        aria-hidden="true">
+                                                    ×
+                                                </button>
+                                                @foreach($errors->all() as $error)
+                                                    <li>{{$error}}</li>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
                                     <div class="col-sm-12 col-xs-12 no-padding">
                                         <div class="row">
 
@@ -48,7 +61,8 @@
                                             <div class="col-xs-6 col-sm-4">
                                                 <div class="form-group">
                                                     <label for="father_name">Father Name</label>
-                                                    <input type="text" wire:model.defer="father_name" id="father_name" autocomplete="off"
+                                                    <input type="text" wire:model.defer="father_name" id="father_name"
+                                                           autocomplete="off"
                                                            class="form-control year @error('father_name')  is-invalid @enderror">
                                                 </div>
                                             </div>
@@ -56,7 +70,8 @@
                                             <div class="col-xs-6 col-sm-4">
                                                 <div class="form-group">
                                                     <label for="password">Password</label>
-                                                    <input type="password" wire:model.defer="password" id="password" autocomplete="off"
+                                                    <input type="password" wire:model.defer="password" id="password"
+                                                           autocomplete="off"
                                                            class="form-control year @error('password')  is-invalid @enderror">
                                                 </div>
                                             </div>

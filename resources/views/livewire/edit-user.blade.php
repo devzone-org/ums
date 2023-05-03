@@ -2,6 +2,30 @@
 
     <div class="content">
         <div class="container-fluid">
+            @if(!empty($success))
+                <div class="col-12">
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-hidden="true">
+                            ×
+                        </button>
+                        {{ $success }}
+                    </div>
+                </div>
+            @endif
+            @if($errors->any())
+                <div class="col-12">
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-hidden="true">
+                            ×
+                        </button>
+                        @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
             <div class="row">
                 <div class="col">
                     <div class="card card-primary card-outline">
@@ -13,17 +37,6 @@
                         <div class="card-body">
                             <form wire:submit.prevent="addUser">
                                 <div class="row">
-                                    @if(!empty($success))
-                                        <div class="col-12">
-                                            <div class="alert alert-success alert-dismissible">
-                                                <button type="button" class="close" data-dismiss="alert"
-                                                        aria-hidden="true">
-                                                    ×
-                                                </button>
-                                                {{ $success }}
-                                            </div>
-                                        </div>
-                                    @endif
                                     <div class="col-sm-12 col-xs-12 no-padding">
                                         <div class="row">
 
@@ -88,24 +101,14 @@
                         <div class="card-body">
                             <form wire:submit.prevent="editPass">
                                 <div class="row">
-                                    @if(!empty($success))
-                                        <div class="col-12">
-                                            <div class="alert alert-success alert-dismissible">
-                                                <button type="button" class="close" data-dismiss="alert"
-                                                        aria-hidden="true">
-                                                    ×
-                                                </button>
-                                                {{ $success }}
-                                            </div>
-                                        </div>
-                                    @endif
                                     <div class="col-sm-12 col-xs-12 no-padding">
                                         <div class="row">
 
                                             <div class="col-xs-6 col-sm-4">
                                                 <div class="form-group">
                                                     <label for="email">New Password</label>
-                                                    <input type="password" wire:model.defer="password" id="new_password" autocomplete="off"
+                                                    <input type="password" wire:model.defer="password" id="new_password"
+                                                           autocomplete="off"
                                                            class="form-control  @error('password')  is-invalid @enderror">
                                                 </div>
                                             </div>
@@ -113,7 +116,8 @@
                                             <div class="col-xs-6 col-sm-4">
                                                 <div class="form-group">
                                                     <label for="name">Confirm Password</label>
-                                                    <input type="password" wire:model.defer="password_confirmation" id="password_confirmation"
+                                                    <input type="password" wire:model.defer="password_confirmation"
+                                                           id="password_confirmation"
                                                            autocomplete="off"
                                                            class="form-control year @error('password_confirmation')  is-invalid @enderror">
                                                 </div>
@@ -141,9 +145,6 @@
 
         </div>
     </div>
-
-
-
 
 @else
     <div class="">

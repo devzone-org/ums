@@ -23,7 +23,19 @@
                                             </div>
                                         </div>
                                     @endif
-
+                                    @if($errors->any())
+                                        <div class="col-12">
+                                            <div class="alert alert-danger alert-dismissible">
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                        aria-hidden="true">
+                                                    ×
+                                                </button>
+                                                @foreach($errors->all() as $error)
+                                                    <li>{{$error}}</li>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
                                     <div class="col-xs-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="current_password">Current Password</label>

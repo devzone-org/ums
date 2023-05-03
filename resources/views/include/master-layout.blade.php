@@ -21,6 +21,13 @@
         input[type="number"] {
             -moz-appearance: textfield;
         }
+        /* define the background colors for the striped effect */
+        select.stripe option:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+        select.stripe option:nth-child(even) {
+            background-color: #fff;
+        }
     </style>
     @livewireScripts
     <script src="{{ asset('user/js/app.js') }}"></script>

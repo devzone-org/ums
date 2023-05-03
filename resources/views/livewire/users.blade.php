@@ -24,6 +24,19 @@
                                             </div>
                                         </div>
                                     @endif
+                                    @if($errors->any())
+                                        <div class="col-12">
+                                            <div class="alert alert-danger alert-dismissible">
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                        aria-hidden="true">
+                                                    ×
+                                                </button>
+                                                @foreach($errors->all() as $error)
+                                                    <li>{{$error}}</li>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
                                     <div class="col-sm-12 col-xs-12 no-padding">
                                         <div class="row">
 
@@ -133,7 +146,7 @@
                                             </a>
                                             @if(config('user-management.link_user_account'))
                                                 @if(empty($u->account_id))
-                                                    <button title="Link to Accounts" type="button"
+                                                    <a title="Link to Accounts" type="button"
                                                             wire:click="linkToAccounts('{{ $u->id }}')"
                                                             class="text-danger">
                                                         <svg style="width: 20px; height: 20px" fill="currentColor"
@@ -143,7 +156,7 @@
                                                                   d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z"
                                                                   clip-rule="evenodd"></path>
                                                         </svg>
-                                                    </button>
+                                                    </a>
                                                 @endif
                                             @endif
                                         </td>
