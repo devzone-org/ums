@@ -126,9 +126,9 @@ class Permission extends Component
                 $this->user->givePermissionTo("$new_add");
             }
             if (count($this->assign_selected_permissions) == 1) {
-                $this->success = 'The permission has been assigned.';
+                $this->success = 'The permission has been changed.';
             } else {
-                $this->success = 'The permissions have been assigned.';
+                $this->success = 'The permissions have been changed.';
             }
             $this->assign_selected_permissions = [];
         }
@@ -138,9 +138,9 @@ class Permission extends Component
                 $this->user->revokePermissionTo("$new_remove");
             }
             if (count($this->revoke_selected_permissions) == 1) {
-                $this->success = 'The permission has been revoked.';
+                $this->success = 'The permission has been changed.';
             } else {
-                $this->success = 'The permissions have been revoked.';
+                $this->success = 'The permissions have been changed.';
             }
             $this->revoke_selected_permissions = [];
         }
