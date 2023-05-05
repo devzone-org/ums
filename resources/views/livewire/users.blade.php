@@ -71,7 +71,7 @@
                                             </div>
 
                                             <div class="col-xs-6 col-sm-4">
-                                                <div class="form-group">
+                                                <div class="form-group mb-0">
                                                     <button type="button" wire:click="clear" class="btn btn-danger"
                                                             wire:loading.attr="disabled">Reset
                                                     </button>
@@ -96,9 +96,9 @@
                 <div class="col">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h5 class="card-title pt-2">All Users</h5>
+                            <h5 class="card-title pt-1">All Users</h5>
                             <div class="card-tools">
-                                <a href="{{ url('ums/users/add') }}" class="btn btn-primary"
+                                <a href="{{ url('ums/users/add') }}" class="btn btn-sm btn-primary"
                                    wire:loading.attr="disabled">
                                     Add User
                                 </a>

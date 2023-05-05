@@ -21,8 +21,6 @@
                     @livewire('edit-user',['id' => $id])
                 @endif
 
-                @livewire('ip-restriction',['id'=>$id])
-
                 @if(auth()->user()->can('1.user-schedule'))
                     @livewire('schedule',['id'=>$id])
                 @endif

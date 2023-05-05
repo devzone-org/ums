@@ -72,7 +72,7 @@
                                             </div>
 
                                             <div class="col-xs-6 col-sm-4">
-                                                <div class="form-group">
+                                                <div class="form-group mb-0">
                                                     <button type="button" wire:click="clear" class="btn btn-danger"
                                                             wire:loading.attr="disabled">Reset
                                                     </button>

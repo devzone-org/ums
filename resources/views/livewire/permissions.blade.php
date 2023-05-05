@@ -29,14 +29,14 @@
                                         </div>
 
                                         <div class="col-xs-12 col-sm-12">
-                                            <div class="form-group">
+                                            <div class="form-group mb-1">
                                                 <button type="button" wire:click="updateData" class="btn btn-primary"
                                                         wire:loading.attr="disabled">
                                                     Search
                                                 </button>
                                             </div>
                                         </div>
-                                        <p class="mx-2 text-sm text-secondary">
+                                        <p class="mx-2 text-sm text-secondary mb-0">
                                             You can search by specific portal.
                                         </p>
                                     </div>

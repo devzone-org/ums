@@ -64,7 +64,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div class="col-xs-12 col-sm-12 border-top">
+                            <div class="col-xs-12 col-sm-12 border-top mb-2 pb-2">
                                 <div class="form-group mt-3 mx-3">
                                     <button type="button" wire:click="updateSchedule" class="btn btn-primary"
                                             wire:loading.attr="disabled">Update

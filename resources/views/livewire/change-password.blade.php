@@ -63,7 +63,7 @@
                                     </div>
 
                                     <div class="col-12">
-                                        <div class="form-group">
+                                        <div class="form-group mb-0">
                                             <button type="submit" wire:loading.attr="disabled" class="btn btn-primary">
                                                 Save
                                             </button>
