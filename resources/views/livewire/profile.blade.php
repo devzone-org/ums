@@ -12,6 +12,7 @@
                         <div class="card-body">
                             <form wire:submit.prevent="updateUser">
                                 <div class="row">
+
                                     @if(!empty($success))
                                         <div class="col-12">
                                             <div class="alert alert-success alert-dismissible">
@@ -23,6 +24,7 @@
                                             </div>
                                         </div>
                                     @endif
+
                                     @if($errors->any())
                                         <div class="col-12">
                                             <div class="alert alert-danger alert-dismissible">
@@ -36,6 +38,7 @@
                                             </div>
                                         </div>
                                     @endif
+
                                     <div class="col-xs-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="first-name">Name</label>
@@ -103,13 +106,15 @@
                                             </div>
                                         </div>
                                     @endif
+
                                     <div class="col-12">
-                                        <div class="form-group">
+                                        <div class="form-group mb-0">
                                             <button type="submit" wire:loading.attr="disabled" class="btn btn-primary">
                                                 Save
                                             </button>
                                         </div>
                                     </div>
+
                                 </div>
                             </form>
                         </div>

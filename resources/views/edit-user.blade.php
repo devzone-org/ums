@@ -7,7 +7,7 @@
 @if(env('UMS_BOOTSTRAP') == 'true')
 
     @section('content')
-            <div class="content-wrapper">
+            <div class="content-wrapper h-auto">
                 <div class="content-header">
                     <div class="container-fluid">
                         <div class="row">
@@ -20,8 +20,6 @@
                 @if(auth()->user()->can('1.user-edit'))
                     @livewire('edit-user',['id' => $id])
                 @endif
-
-                @livewire('ip-restriction',['id'=>$id])
 
                 @if(auth()->user()->can('1.user-schedule'))
                     @livewire('schedule',['id'=>$id])

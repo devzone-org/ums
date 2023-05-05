@@ -71,7 +71,7 @@
                                             </div>
 
                                             <div class="col-xs-12 col-sm-12">
-                                                <div class="form-group">
+                                                <div class="form-group mb-0">
                                                     <button type="submit" class="btn btn-primary"
                                                             wire:loading.attr="disabled">Update
                                                     </button>
@@ -124,7 +124,7 @@
                                             </div>
 
                                             <div class="col-xs-12 col-sm-12">
-                                                <div class="form-group">
+                                                <div class="form-group mb-0">
                                                     <button type="submit" class="btn btn-primary"
                                                             wire:loading.attr="disabled">Update
                                                     </button>

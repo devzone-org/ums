@@ -10,7 +10,7 @@
                             <h5 class="card-title">Permission Filter</h5>
                         </div>
 
-                        <div class="card-body">
+                        <div class="card-body pb-0">
                             <form wire:submit.prevent="search()">
                                 <div class="row">
                                     @if(!empty($success))
@@ -46,7 +46,7 @@
                                                     <label for="first-name">Search keywords</label>
                                                     <input type="text" wire:model.debounce.500ms="keyword" autocomplete="given-name"
                                                            class="form-control year @error('keyword')  is-invalid @enderror">
-                                                    <p class="mt-2 text-muted" id="email-description">You can search by permission name,
+                                                    <p class="mt-2 mb-0 text-muted" id="email-description">You can search by permission name,
                                                         section or portal name.</p>
                                                 </div>
                                             </div>
