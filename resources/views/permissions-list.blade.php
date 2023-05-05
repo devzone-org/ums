@@ -4,7 +4,7 @@
 
 @if(env('UMS_BOOTSTRAP') == 'true')
     @section('content')
-        <div class="content-wrapper">
+        <div class="content-wrapper h-auto">
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row">
