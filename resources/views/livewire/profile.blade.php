@@ -69,17 +69,17 @@
                                             <div class="d-flex justify-content-center">
                                                 @if(!empty($photo))
                                                     <div style="width: 80px;height: 80px;border-radius: 50%;overflow: hidden">
-                                                        <img class="img-circle w-100 border"
+                                                        <img class="img-circle w-100 h-100 border"
                                                              src="{{ $photo->temporaryUrl() }}">
                                                     </div>
                                                 @elseif(!empty($user['attachment']))
                                                     <div style="width: 80px;height: 80px;border-radius: 50%;overflow: hidden">
-                                                        <img class="img-circle w-100 border"
+                                                        <img class="img-circle w-100 h-100 border"
                                                              src="{{ env('AWS_URL'). $user['attachment'] }}">
                                                     </div>
                                                 @else
                                                     <div style="width: 80px;height: 80px;border-radius: 50%;overflow: hidden">
-                                                        <img class="w-100 img-circle"
+                                                        <img class="w-100 h-100 img-circle"
                                                              src="{{ asset('img/default-profile.jpg') }}" alt="">
                                                     </div>
                                                 @endif
