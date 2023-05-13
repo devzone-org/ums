@@ -112,8 +112,8 @@
 
                         <div class="col-xs-12 w-100">
                             <form wire:submit.prevent="savePermissionsData">
-                                <div class="d-flex">
-                                    <div class="col-xs-6 w-50 pl-3 px-2 pt-0">
+                                <div class="d-flex flex-column flex-md-row">
+                                    <div class="col-xs-6 w-100 pl-3 px-2 pt-0">
 
                                         <div class="alert alert-danger p-4 mb-0">
                                             <strong>List of all unassigned permissions.</strong>
@@ -154,7 +154,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 w-50 pr-3 px-2 pt-0">
+                                    <div class="col-xs-6 w-100 pr-3 px-2 pt-0">
 
                                         <div class="alert alert-success p-4 mb-0">
                                             <strong>List of all unassigned permissions.</strong>
@@ -171,7 +171,7 @@
                                                 </svg>
                                             </button>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group w-100">
                                             <input type="text" wire:model.debounce.500ms="assigned_keyword"
                                                    autocomplete="given-name" class="w-100 border mb-1 py-1 rounded">
                                             <select wire:model="removing_permissions_ids"
@@ -218,6 +218,7 @@
     </div>
 
 @else
+
     <div class="">
 
         <div class="mb-5 shadow sm:rounded-md sm:overflow-hidden">
