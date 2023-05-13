@@ -45,12 +45,15 @@
                                 <tbody>
                                 @foreach($schedule as $key => $s)
                                     <tr>
-                                        <td style="padding-top: 20px; padding-bottom: 20px" class="align-middle">{{ ucfirst($s['day']) }}</td>
+                                        <td style="padding-top: 20px; padding-bottom: 20px"
+                                            class="align-middle">{{ ucfirst($s['day']) }}</td>
                                         <td class="align-middle">
-                                            <input type="time" wire:model.defer="schedule.{{ $key }}.from" autocomplete="off" class="custom-select">
+                                            <input type="time" wire:model.defer="schedule.{{ $key }}.from"
+                                                   autocomplete="off" class="custom-select">
                                         </td>
                                         <td class="align-middle">
-                                            <input type="time" wire:model.defer="schedule.{{ $key }}.to" autocomplete="off" class="custom-select">
+                                            <input type="time" wire:model.defer="schedule.{{ $key }}.to"
+                                                   autocomplete="off" class="custom-select">
                                         </td>
                                         <td class="align-middle">
                                             <select wire:model.defer="schedule.{{ $key }}.status"
@@ -88,61 +91,63 @@
                 </div>
                 @include('ums::include.messages')
             </div>
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                <tr>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Day
-                    </th>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        From
-                    </th>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        To
-                    </th>
-
-
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Status
-                    </th>
-
-                </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                @foreach($schedule as $key => $s)
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
                     <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{ ucfirst($s['day']) }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <input type="time"
-                                   class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                   wire:model.defer="schedule.{{ $key }}.from">
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <input type="time"
-                                   class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                   wire:model.defer="schedule.{{ $key }}.to">
-                        </td>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Day
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            From
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            To
+                        </th>
 
 
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    wire:model.defer="schedule.{{ $key }}.status">
-                                <option value=""></option>
-                                <option value="t">On</option>
-                                <option value="f">Off</option>
-                            </select>
-                        </td>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Status
+                        </th>
+
                     </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach($schedule as $key => $s)
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                {{ ucfirst($s['day']) }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <input type="time"
+                                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                       wire:model.defer="schedule.{{ $key }}.from">
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <input type="time"
+                                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                       wire:model.defer="schedule.{{ $key }}.to">
+                            </td>
 
-                @endforeach
-                </tbody>
-            </table>
+
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        wire:model.defer="schedule.{{ $key }}.status">
+                                    <option value=""></option>
+                                    <option value="t">On</option>
+                                    <option value="f">Off</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
 
             <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <button type="button" wire:click="updateSchedule"

@@ -136,7 +136,8 @@
                                             <select wire:model="adding_permissions_ids"
                                                     id="adding_permissions_ids"
                                                     multiple size="30" id="section_list"
-                                                    class="overflow-auto w-100 px-2 border stripe" style="height: 800px">
+                                                    class="w-100 px-2 border stripe"
+                                                    style="height: 800px">
                                                 @if(!empty($unassigned_permissions))
                                                     @foreach(collect($unassigned_permissions)->groupBy('section')->toArray() as $x => $un_per)
                                                         <optgroup class="py-1"
@@ -176,7 +177,7 @@
                                                    autocomplete="given-name" class="w-100 border mb-1 py-1 rounded">
                                             <select wire:model="removing_permissions_ids"
                                                     id="removing_permissions_ids"
-                                                    multiple size="30" class="overflow-auto w-100 px-2 border stripe"
+                                                    multiple size="30" class="w-100 px-2 border stripe"
                                                     style="height: 800px">
                                                 @if(!empty($assigned_permissions))
                                                     @foreach(collect($assigned_permissions)->groupBy('section')->toArray() as $y => $per)
@@ -237,8 +238,9 @@
                                 <option value="{{$p['portal']}}">{{ucwords(str_replace('_', ' ', $p['portal']))}}</option>
                             @endforeach
                         </select>
-                        <p class="mt-2 text-sm text-gray-400" id="email-description">You can search by specific
-                            portal.</p>
+                        <p class="mt-2 text-sm text-gray-400" id="email-description">
+                            You can search by specific portal.
+                        </p>
                     </div>
                 </div>
 
@@ -257,50 +259,52 @@
                 </div>
                 @include('ums::include.messages')
             </div>
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50 px-4">
-                <tr>
-                    <th scope="col"
-                        class="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        User Name
-                    </th>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        User Email
-                    </th>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        User Status
-                    </th>
-                </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                <tr>
-                    <td class="px-7 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ucwords($user->name)}}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{$user->email}}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        @if($user->status == 't')
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50 px-4">
+                    <tr>
+                        <th scope="col"
+                            class="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            User Name
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            User Email
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            User Status
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tr>
+                        <td class="px-7 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ucwords($user->name)}}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{$user->email}}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            @if($user->status == 't')
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                             Active
                         </span>
-                        @else
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                            @else
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                             Inactive
                         </span>
-                        @endif
-                    </td>
-                </tr>
-                <tr>
-                    <td class="px-7 py-4 whitespace-nowrap text-sm text-gray-500"></td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
-                </tr>
-                </tbody>
-            </table>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-7 py-4 whitespace-nowrap text-sm text-gray-500"></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="flex flex-col">
                 <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full align-middle md:px-6 lg:px-8 ">
@@ -333,14 +337,14 @@
                                                 <select wire:model="adding_permissions_ids"
                                                         id="adding_permissions_ids"
                                                         multiple
-                                                        class="overflow-x-auto h-96 block w-full px-3 py-4 border border-gray-100 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm stripe"
+                                                        class="h-96 block w-full px-3 py-4 border border-gray-100 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm stripe"
                                                         style="height: 800px">
                                                     @if(!empty($unassigned_permissions))
                                                         @foreach(collect($unassigned_permissions)->groupBy('section')->toArray() as $x => $un_per)
-                                                            <optgroup class="py-1"
+                                                            <optgroup class="py-1 w-full"
                                                                       label="{{ucwords(str_replace('_', ' ', $x))}}">
                                                                 @foreach(collect($un_per)->sortBy('description') as $data1)
-                                                                    <option class="py-1 {{$loop->first ? 'mt-2' : ''}}"
+                                                                    <option class="py-1 w-full {{$loop->first ? 'mt-2' : ''}}"
                                                                             value="{{$data1['name']}}">
                                                                         {{$loop->iteration . "."}} {{ucwords($data1['description'])}}
                                                                     </option>
@@ -377,15 +381,15 @@
                                                 <select wire:model="removing_permissions_ids"
                                                         id="removing_permissions_ids"
                                                         multiple
-                                                        class="overflow-x-auto h-96 block w-full px-3 py-4 border border-gray-100 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm stripe"
+                                                        class="h-96 block w-full px-3 py-4 border border-gray-100 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm stripe"
                                                         style="height: 800px">
 
                                                     @if(!empty($assigned_permissions))
                                                         @foreach(collect($assigned_permissions)->groupBy('section')->toArray() as $y => $per)
-                                                            <optgroup class="py-1"
+                                                            <optgroup class="py-1 w-full"
                                                                       label="{{ucwords(str_replace('_', ' ', $y))}}">
                                                                 @foreach(collect($per)->sortBy('description') as $data2)
-                                                                    <option class="py-1 {{$loop->first ? 'mt-2' : ''}}"
+                                                                    <option class="py-1 {{$loop->first ? 'mt-2' : ''}} w-full"
                                                                             value="{{$data2['name']}}">
                                                                         {{$loop->iteration . "."}} {{ucwords($data2['description'])}}
                                                                     </option>
