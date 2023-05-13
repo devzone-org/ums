@@ -134,14 +134,14 @@
                         </div>
                         <div class="card-body table-responsive p-0">
 
-                            <table class="table   table-striped table-sm  ">
+                            <table class="table table-striped table-sm">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
-                                    <th></th>
+                                    <th class="col-1">#</th>
+                                    <th class="col-4">Name</th>
+                                    <th class="col-4">Email</th>
+                                    <th class="col-2">Status</th>
+                                    <th class="col-1"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -183,14 +183,14 @@
                         </div>
                         <div class="card-body table-responsive p-0">
 
-                            <table class="table   table-striped table-sm  ">
+                            <table class="table table-striped table-sm">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
-                                    <th></th>
+                                    <th class="col-1">#</th>
+                                    <th class="col-4">Name</th>
+                                    <th class="col-4">Email</th>
+                                    <th class="col-2">Status</th>
+                                    <th class="col-1"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
