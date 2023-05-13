@@ -136,7 +136,7 @@
                                             <select wire:model="adding_permissions_ids"
                                                     id="adding_permissions_ids"
                                                     multiple size="30" id="section_list"
-                                                    class="w-100 px-2 border stripe" style="height: 800px">
+                                                    class="overflow-auto w-100 px-2 border stripe" style="height: 800px">
                                                 @if(!empty($unassigned_permissions))
                                                     @foreach(collect($unassigned_permissions)->groupBy('section')->toArray() as $x => $un_per)
                                                         <optgroup class="py-1"
@@ -176,7 +176,7 @@
                                                    autocomplete="given-name" class="w-100 border mb-1 py-1 rounded">
                                             <select wire:model="removing_permissions_ids"
                                                     id="removing_permissions_ids"
-                                                    multiple size="30" class="w-100 px-2 border stripe"
+                                                    multiple size="30" class="overflow-auto w-100 px-2 border stripe"
                                                     style="height: 800px">
                                                 @if(!empty($assigned_permissions))
                                                     @foreach(collect($assigned_permissions)->groupBy('section')->toArray() as $y => $per)
@@ -306,7 +306,7 @@
                     <div class="inline-block min-w-full align-middle md:px-6 lg:px-8 ">
                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5">
                             <form wire:submit.prevent="savePermissionsData">
-                                <div class="px-4 py-6 space-y-6 bg-white sm:p-6 sm:pt-0">
+                                <div class="flex flex-col sm:flex-row px-4 py-6 space-y-6 bg-white sm:p-6 sm:pt-0">
                                     <div class="flex justify-between gap-x-4">
                                         <div class="w-1/2">
                                             <div class="bg-red-600 text-red-100 font-bold rounded p-5 justify-center items-center">
@@ -333,7 +333,7 @@
                                                 <select wire:model="adding_permissions_ids"
                                                         id="adding_permissions_ids"
                                                         multiple
-                                                        class="h-96 block w-full px-3 py-4 border border-gray-100 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm stripe"
+                                                        class="overflow-x-auto h-96 block w-full px-3 py-4 border border-gray-100 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm stripe"
                                                         style="height: 800px">
                                                     @if(!empty($unassigned_permissions))
                                                         @foreach(collect($unassigned_permissions)->groupBy('section')->toArray() as $x => $un_per)
@@ -377,7 +377,7 @@
                                                 <select wire:model="removing_permissions_ids"
                                                         id="removing_permissions_ids"
                                                         multiple
-                                                        class="h-96 block w-full px-3 py-4 border border-gray-100 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm stripe"
+                                                        class="overflow-x-auto h-96 block w-full px-3 py-4 border border-gray-100 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm stripe"
                                                         style="height: 800px">
 
                                                     @if(!empty($assigned_permissions))
