@@ -306,9 +306,9 @@
                     <div class="inline-block min-w-full align-middle md:px-6 lg:px-8 ">
                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5">
                             <form wire:submit.prevent="savePermissionsData">
-                                <div class="flex flex-col sm:flex-row px-4 py-6 space-y-6 bg-white sm:p-6 sm:pt-0">
-                                    <div class="flex justify-between gap-x-4">
-                                        <div class="w-1/2">
+                                <div class="px-4 py-6 space-y-6 bg-white sm:p-6 sm:pt-0">
+                                    <div class="flex flex-col sm:flex-row justify-between gap-x-4">
+                                        <div class="w-full">
                                             <div class="bg-red-600 text-red-100 font-bold rounded p-5 justify-center items-center">
                                                 List of all unassigned permissions.
                                             </div>
@@ -352,7 +352,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="w-1/2">
+                                        <div class="w-full">
                                             <div class="bg-green-600 text-green-100 font-bold rounded p-5 justify-center items-center">
                                                 List of all assigned permissions.
                                             </div>
