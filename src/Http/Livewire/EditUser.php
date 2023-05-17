@@ -25,7 +25,6 @@ class EditUser extends Component
 
     ];
 
-
     protected $validationAttributes = [
         'email' => 'Email',
         'name' => 'Name',
@@ -72,12 +71,14 @@ class EditUser extends Component
             'password_confirmation' => 'required_with:password|same:password'
             ]);
 
-        User::find($this->primary_id)
-            ->update([
+        if(auth()->user()->can('1.change-users-passwords'))
+        {
+            User::find($this->primary_id)->update([
                 'password' => Hash::make($this->password)
             ]);
+            $this->success = 'Password has been updated.';
+        }
 
-        $this->success = 'Password has been updated.';
         $this->reset(['password', 'password_confirmation']);
     }
 
