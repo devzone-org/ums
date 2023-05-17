@@ -22,6 +22,7 @@ class AddUser extends Component
     protected $rules = [
         'email' => 'required|unique:App\Models\User,email',
         'password' => 'required|min:6',
+        'password_confirmation' => 'required_with:password|same:password',
         'name' => 'required'
     ];
 
@@ -43,7 +44,7 @@ class AddUser extends Component
         ]);
 
         $this->success = 'User has been created.';
-        $this->reset(['name', 'email', 'status', 'password','father_name']);
+        $this->reset(['name', 'email', 'status', 'password', 'password_confirmation', 'father_name']);
     }
 
 
