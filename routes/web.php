@@ -14,13 +14,15 @@ Route::middleware(['auth'])->group(function () {
         return view('ums::profile');
     });
 
-
-    Route::get('change-password', function () {
-        if (Auth::user()->type == 'student') {
-            return redirect()->to('student/dashboard');
-        }
-        return view('ums::change-password');
+    Route::group(['middleware' => ['can:1.user-edit']], function () {
+        Route::get('change-password', function () {
+            if (Auth::user()->type == 'student') {
+                return redirect()->to('student/dashboard');
+            }
+            return view('ums::change-password');
+        });
     });
+
 
     Route::group(['middleware' => ['can:1.user.list']], function () {
         Route::get('users', function () {
@@ -33,7 +35,6 @@ Route::middleware(['auth'])->group(function () {
             return view('ums::add-user');
         });
     });
-
 
     Route::get('users/edit/{id}', function ($id) {
         return view('ums::edit-user', compact('id'));

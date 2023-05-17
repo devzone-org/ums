@@ -10,7 +10,7 @@
                         </div>
 
                         <div class="card-body">
-                            <form wire:submit.prevent="updateUser">
+                            <form wire:submit.prevent="updateUserDetails">
                                 <div class="row">
 
                                     @if(!empty($success))
@@ -39,27 +39,65 @@
                                         </div>
                                     @endif
 
-                                    <div class="col-xs-6 col-sm-12">
+                                    <div class="col-xs-6 col-sm-4">
                                         <div class="form-group">
-                                            <label for="first-name">Name</label>
-                                            <input type="text" wire:model.lazy="user.name"
-                                                   class="form-control  @error('user.name')  is-invalid @enderror"
+                                            <label for="first-name">First Name</label>
+                                            <input type="text" wire:model.lazy="user_details.first_name"
+                                                   class="form-control  @error('user_details.first_name')  is-invalid @enderror"
                                                    id="first-name" autocomplete="given-name">
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-12">
+                                    <div class="col-xs-6 col-sm-4">
                                         <div class="form-group">
-                                            <label for="father-name">Father Name</label>
-                                            <input type="text" wire:model.lazy="user.father_name" id="father-name"
-                                                   autocomplete="given-name" class="form-control">
+                                            <label for="middle-name">Middle Name</label>
+                                            <input type="text" wire:model.lazy="user_details.middle_name"
+                                                   class="form-control"
+                                                   id="middle-name" autocomplete="given-name">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-4">
+                                        <div class="form-group">
+                                            <label for="family-name">Family Name</label>
+                                            <input type="text" wire:model.lazy="user_details.family_name"
+                                                   class="form-control"
+                                                   id="family-name" autocomplete="given-name">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-4">
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="text" wire:model.lazy="user.email" id="email" disabled
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-4">
+                                        <div class="form-group">
+                                            <label for="contact-no">Contact #</label>
+                                            <input type="text" wire:model.lazy="user_details.contact_no"
+                                                   class="form-control"
+                                                   id="contact-no" autocomplete="given-name">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-4">
+                                        <div class="form-group">
+                                            <label for="personal-id-no">Personal ID #</label>
+                                            <input type="text" wire:model.lazy="user_details.personal_id_no"
+                                                   class="form-control"
+                                                   id="personal-id-no" autocomplete="given-name">
                                         </div>
                                     </div>
 
                                     <div class="col-xs-6 col-sm-12">
                                         <div class="form-group">
-                                            <label for="email">Email</label>
-                                            <input type="text" wire:model.lazy="user.email" id="email" disabled class="form-control">
+                                            <label for="address">Address</label>
+                                            <input type="text" wire:model.lazy="user_details.address"
+                                                   class="form-control"
+                                                   id="address" autocomplete="given-name">
                                         </div>
                                     </div>
 
@@ -84,22 +122,34 @@
                                                     </div>
                                                 @endif
 
-                                                <div class="px-3 pt-4 btn btn-sm">
-                                                    <label for="file-upload" class=" py-1 px-3 border bg-light">
-                                                        <span>Change</span>
-                                                        <input id="file-upload" wire:model="photo" name="file-upload"
-                                                               accept="image/png, image/jpeg" type="file"
-                                                               class="sr-only">
-                                                    </label>
-                                                </div>
+                                                @if(auth()->user()->can('1.edit-profile-photo'))
+                                                        <div class="px-3 pt-4 btn btn-sm">
+                                                            <label for="file-upload" class=" py-1 px-3 border bg-light rounded">
+                                                                <span>Change</span>
+                                                                <input id="file-upload" wire:model="photo" name="file-upload"
+                                                                       accept="image/png, image/jpeg" type="file"
+                                                                       class="sr-only">
+                                                            </label>
+                                                        </div>
+                                                @endif
+
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label for="remarks">Remarks</label>
+                                            <textarea wire:model.lazy="user_details.remarks" rows="3"
+                                                      class="form-control"
+                                                      id="remarks" autocomplete="given-name"></textarea>
                                         </div>
                                     </div>
 
                                     @if(config('user-management.link_user_account'))
                                         <div class="col-xs-6 col-sm-12">
                                             <div class="form-group">
-                                                <label>Receivable Account</label>
+                                                <label>Linked - Account</label>
                                                 <input type="text"
                                                        class="form-control" disabled
                                                        @if(!empty($user['account_id'])) value="{{ $user['account_name'] }}" @endif>
@@ -125,6 +175,7 @@
     </div>
 
 @else
+
     <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
         <form wire:submit.prevent="updateUser">
             <div class="shadow sm:rounded-md sm:overflow-hidden">
@@ -184,13 +235,14 @@
                                     @endif
 
 
-                                    <label for="file-upload"
-                                           class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                        <span>Change</span>
-                                        <input id="file-upload" wire:model="photo" name="file-upload"
-                                               accept="image/png, image/jpeg" type="file" class="sr-only">
-                                    </label>
-
+                                    @if(auth()->user()->can('1.edit-profile-photo'))
+                                            <label for="file-upload"
+                                                   class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                <span>Change</span>
+                                                <input id="file-upload" wire:model="photo" name="file-upload"
+                                                       accept="image/png, image/jpeg" type="file" class="sr-only">
+                                            </label>
+                                    @endif
 
                                 </div>
                             </div>

@@ -1,12 +1,11 @@
 <?php
 
-
 namespace Devzone\UserManagement\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Schedule extends Model
+class UserAdditionalDetail extends Model
 {
-    protected $table = 'schedules';
+    protected $table = 'user_additional_details';
     protected $guarded = [];
 }
