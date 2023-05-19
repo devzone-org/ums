@@ -4,7 +4,6 @@
 namespace Devzone\UserManagement\Http\Livewire;
 
 
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 use Livewire\Component;
@@ -16,6 +15,10 @@ class Schedule extends Component
     public $user_id;
     public $schedule = [];
     public $days = [];
+    public $multi_days;
+    public $multi_from;
+    public $multi_to;
+    public $multi_status;
 
 
     public function mount($id)
@@ -45,24 +48,38 @@ class Schedule extends Component
                 $this->schedule[] = $re;
             }
         }
-
-
     }
 
     public function updateSchedule()
     {
         foreach ($this->schedule as $s)
-        \Devzone\UserManagement\Models\Schedule::updateOrCreate(
-            ['day'=> $s['day'],'user_id'=>$this->user_id],
-            [
-                'from' => $s['from'] ?? null,
-                'to' => $s['to'] ?? null,
+            \Devzone\UserManagement\Models\Schedule::updateOrCreate([
+                'day' => $s['day'],
+                'user_id' => $this->user_id
+            ], [
+                    'from' => $s['from'] ?? null,
+                    'to' => $s['to'] ?? null,
+                    'status' => $s['status'] ?? null,
+                ]
+            );
+        $this->success = 'Schedule has been updated.';
+    }
 
-
-                'status' => $s['status'] ?? null,
-
-            ]
-        );
+    public function multipleUpdateSchedule()
+    {
+        if (!empty($this->multi_days)) {
+            foreach ($this->multi_days as $day) {
+                \Devzone\UserManagement\Models\Schedule::updateOrCreate([
+                    'user_id' => $this->user_id,
+                    'day' => $day,
+                ], [
+                    'from' => $this->multi_from,
+                    'to' => $this->multi_to,
+                    'status' => $this->multi_status,
+                ]);
+            }
+            $this->success = 'Schedule has been updated.';
+        }
     }
 
 }
