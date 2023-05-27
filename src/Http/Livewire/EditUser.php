@@ -5,12 +5,16 @@ namespace Devzone\UserManagement\Http\Livewire;
 
 
 use App\Models\User;
+use Devzone\UserManagement\Traits\LogActivityManualTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use Spatie\Activitylog\Models\Activity;
 
 class EditUser extends Component
 {
+    use LogActivityManualTrait;
+
     public $password;
     public $name;
     public $email;
@@ -18,11 +22,11 @@ class EditUser extends Component
     public $success;
     public $status;
     public $primary_id;
+    public $old_data;
 
     protected $rules = [
         'email' => 'required',
         'name' => 'required',
-
     ];
 
     protected $validationAttributes = [
@@ -39,6 +43,12 @@ class EditUser extends Component
         $this->name = $user->name;
         $this->email = $user->email;
         $this->status = $user->status;
+
+        $this->old_data = [
+            'name' => $user->name,
+            'email' => $user->email,
+            'status' => $user->status
+        ];
 
     }
 
@@ -59,6 +69,16 @@ class EditUser extends Component
                 'name' => $this->name,
                 'status' => $this->status,
             ]);
+
+            $new_data = [
+                'name' => $this->name,
+                'email' => $this->email,
+                'status' => $this->status
+            ];
+
+            $description = $this->logDescription($new_data, $this->old_data);
+            $this->auditLog(User::find($this->primary_id), $this->primary_id, 'UMS', $description);
+
             $this->success = 'User has been edited.';
         }
 
@@ -76,10 +96,28 @@ class EditUser extends Component
             User::find($this->primary_id)->update([
                 'password' => Hash::make($this->password)
             ]);
+
+            $description = 'Password has been updated.';
+            $this->auditLog(User::find($this->primary_id), $this->primary_id, 'UMS', $description);
+
             $this->success = 'Password has been updated.';
         }
 
         $this->reset(['password', 'password_confirmation']);
+    }
+
+    public function auditLog($performed_on, $target_id, $log_name, $description)
+    {
+        if (!empty($description)) {
+            activity()
+                ->causedBy(\auth()->id())
+                ->performedOn($performed_on)
+                ->tap(function (Activity $activity) use ($target_id, $log_name) {
+                    $activity->target_id = $target_id ?? null;
+                    $activity->log_name = $log_name;
+                })
+                ->log($description);
+        }
     }
 
 

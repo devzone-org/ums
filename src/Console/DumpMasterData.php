@@ -26,6 +26,8 @@ class DumpMasterData extends Command
         Permission::updateOrCreate(['name' => '1.edit-profile-photo'], ['guard_name' => 'web', 'description' => 'edit profile photo', 'portal' => 'user management', 'section' => 'user management']);
         Permission::updateOrCreate(['name' => '1.change-users-passwords'], ['guard_name' => 'web', 'description' => 'change users passwords', 'portal' => 'user management', 'section' => 'user management']);
 
+        Permission::updateOrCreate(['name' => '1.user-activity'], ['guard_name' => 'web', 'description' => 'user activity', 'portal' => 'user management', 'section' => 'user management']);
+
         User::updateOrCreate([
             'email' => 'talha@devzone.services'
         ], [

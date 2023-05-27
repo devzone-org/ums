@@ -4,12 +4,15 @@
 namespace Devzone\UserManagement\Http\Livewire;
 
 
+use Devzone\UserManagement\Traits\LogActivityManualTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 use Livewire\Component;
+use Spatie\Activitylog\Models\Activity;
 
 class Schedule extends Component
 {
+    use LogActivityManualTrait;
 
     public $success;
     public $user_id;
@@ -62,6 +65,10 @@ class Schedule extends Component
                     'status' => $s['status'] ?? null,
                 ]
             );
+
+        $description = 'Schedule has been updated.';
+        $this->auditLog(\Devzone\UserManagement\Models\Schedule::find($this->user_id), $this->user_id, 'UMS', $description);
+
         $this->success = 'Schedule has been updated.';
     }
 
@@ -78,7 +85,25 @@ class Schedule extends Component
                     'status' => $this->multi_status,
                 ]);
             }
+
+            $description = 'Schedule has been updated.';
+            $this->auditLog(\Devzone\UserManagement\Models\Schedule::find($this->user_id), $this->user_id, 'UMS', $description);
+
             $this->success = 'Schedule has been updated.';
+        }
+    }
+
+    public function auditLog($performed_on, $target_id, $log_name, $description)
+    {
+        if (!empty($description)) {
+            activity()
+                ->causedBy(\auth()->id())
+                ->performedOn($performed_on)
+                ->tap(function (Activity $activity) use ($target_id, $log_name) {
+                    $activity->target_id = $target_id ?? null;
+                    $activity->log_name = $log_name;
+                })
+                ->log($description);
         }
     }
 

@@ -38,12 +38,24 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::group(['middleware' => ['can:1.user-permission']], function () {
+
         Route::get('permissions-list', function () {
             return view('ums::permissions-list');
         });
 
         Route::get('permission-detail/{id}', function ($id) {
             return view('ums::permission-detail', compact('id'));
+        });
+    });
+
+    Route::group(['middleware' => ['can:1.user-activity']], function () {
+
+        Route::get('user-activity', function () {
+            return view('ums::user-activity');
+        });
+
+        Route::get('activity-details/{id}', function ($id) {
+            return view('ums::activity-details', compact('id'));
         });
     });
 

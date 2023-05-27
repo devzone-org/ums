@@ -3,10 +3,14 @@
 namespace Devzone\UserManagement\Http\Livewire;
 
 use App\Models\User;
+use Devzone\UserManagement\Traits\LogActivityManualTrait;
 use Livewire\Component;
+use Spatie\Activitylog\Models\Activity;
 
 class Permission extends Component
 {
+    use LogActivityManualTrait;
+
     public $user_id, $user, $success;
     public $portal, $assigned_keyword, $unassigned_keyword;
     public $portals = [];
@@ -130,6 +134,7 @@ class Permission extends Component
             } else {
                 $this->success = 'The permissions have been changed.';
             }
+
             $this->assign_selected_permissions = [];
         }
 
@@ -143,7 +148,11 @@ class Permission extends Component
                 $this->success = 'The permissions have been changed.';
             }
             $this->revoke_selected_permissions = [];
+
         }
+
+        $description = $this->success;
+        $this->auditLog($this->user, $this->user_id, 'UMS', $description);
 
         $this->reset(['assigned_keyword', 'unassigned_keyword']);
         $this->getAssignedPermissions();
@@ -158,6 +167,20 @@ class Permission extends Component
         $this->reset(['assigned_keyword', 'unassigned_keyword']);
         $this->getAssignedPermissions();
         $this->getUnassignedPermissions();
+    }
+
+    public function auditLog($performed_on, $target_id, $log_name, $description)
+    {
+        if (!empty($description)) {
+            activity()
+                ->causedBy(\auth()->id())
+                ->performedOn($performed_on)
+                ->tap(function (Activity $activity) use ($target_id, $log_name) {
+                    $activity->target_id = $target_id ?? null;
+                    $activity->log_name = $log_name;
+                })
+                ->log($description);
+        }
     }
 
     public function render()
