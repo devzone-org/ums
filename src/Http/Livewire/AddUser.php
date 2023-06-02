@@ -46,10 +46,10 @@ class AddUser extends Component
             'status' => $this->status,
             'type' => 'admin',
             'password' => Hash::make($this->password)
-        ])->id;
+        ]);
 
-        $description = 'Added a new user with name "' . $this->name . ' ' . $this->father_name . '".';
-        $this->auditLog(User::find($user), Auth::user()->id, 'UMS', $description);
+        $description = 'The user has been added.';
+        $this->auditLog($user, $user->id, 'UMS', $description);
 
         $this->success = 'User has been created.';
         $this->reset(['name', 'email', 'status', 'password', 'password_confirmation', 'father_name']);
