@@ -55,7 +55,7 @@ class PermissionDetail extends Component
         $assign = User::find($id);
         $assign->givePermissionTo($this->permission['name']);
 
-        $description = 'A permission has been assigned.';
+        $description = '"' . ucwords($this->permission['description']) . '" permission has been assigned.';
         $this->auditLog($assign, $id, 'UMS', $description);
     }
 
@@ -65,7 +65,7 @@ class PermissionDetail extends Component
         $revoke = User::find($id);
         $revoke->revokePermissionTo($this->permission['name']);
 
-        $description = 'A permission has been revoked.';
+        $description = '"' . ucwords($this->permission['description']) . '" permission has been revoked.';
         $this->auditLog($revoke, $id, 'UMS', $description);
     }
 
