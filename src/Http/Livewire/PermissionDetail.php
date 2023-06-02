@@ -52,19 +52,21 @@ class PermissionDetail extends Component
 
     public function assign($id)
     {
-        User::find($id)->givePermissionTo($this->permission['name']);
+        $assign = User::find($id);
+        $assign->givePermissionTo($this->permission['name']);
 
         $description = 'A permission has been assigned.';
-        $this->auditLog(User::find($id), $id, 'UMS', $description);
+        $this->auditLog($assign, $id, 'UMS', $description);
     }
 
 
     public function revoke($id)
     {
-        User::find($id)->revokePermissionTo($this->permission['name']);
+        $revoke = User::find($id);
+        $revoke->revokePermissionTo($this->permission['name']);
 
         $description = 'A permission has been revoked.';
-        $this->auditLog(User::find($id), $id, 'UMS', $description);
+        $this->auditLog($revoke, $id, 'UMS', $description);
     }
 
     public function clear()
