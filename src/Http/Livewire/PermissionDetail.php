@@ -59,7 +59,6 @@ class PermissionDetail extends Component
         $this->auditLog($assign, $id, 'UMS', $description);
     }
 
-
     public function revoke($id)
     {
         $revoke = User::find($id);
