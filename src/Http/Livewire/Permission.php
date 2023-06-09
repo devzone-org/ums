@@ -5,8 +5,6 @@ namespace Devzone\UserManagement\Http\Livewire;
 use App\Models\User;
 use Devzone\UserManagement\Traits\LogActivityManualTrait;
 use Livewire\Component;
-use Spatie\Activitylog\Models\Activity;
-
 class Permission extends Component
 {
     use LogActivityManualTrait;
@@ -184,20 +182,6 @@ class Permission extends Component
         $this->reset(['assigned_keyword', 'unassigned_keyword']);
         $this->getAssignedPermissions();
         $this->getUnassignedPermissions();
-    }
-
-    public function auditLog($performed_on, $target_id, $log_name, $description)
-    {
-        if (!empty($description)) {
-            activity()
-                ->causedBy(\auth()->id())
-                ->performedOn($performed_on)
-                ->tap(function (Activity $activity) use ($target_id, $log_name) {
-                    $activity->target_id = $target_id ?? null;
-                    $activity->log_name = $log_name;
-                })
-                ->log($description);
-        }
     }
 
     public function render()

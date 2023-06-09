@@ -4,6 +4,8 @@ namespace Devzone\UserManagement\Traits;
 
 use App\Models\Option;
 use App\Models\World\Country;
+use Spatie\Activitylog\Models\Activity;
+use Illuminate\Support\Facades\Schema;
 
 trait LogActivityManualTrait
 {
@@ -25,8 +27,8 @@ trait LogActivityManualTrait
                 $values = $this->valuesAssign($field, $old, $new);
 
                 $description .= ucwords(str_replace(' id', '', str_replace('_', ' ', $field)))
-                    . ' changed from "' . (!empty($values['old_value']) ? $values['old_value'] : 'None')
-                    . '" to "' . (!empty($values['new_value']) ? $values['new_value'] : 'None') . '". ';
+                    . ' changed from "' . (!empty($values['old_value']) ? $values['old_value'] : 'Empty')
+                    . '" to "' . (!empty($values['new_value']) ? $values['new_value'] : 'Empty') . '". ';
             }
         }
         return $description;
@@ -45,6 +47,22 @@ trait LogActivityManualTrait
             $old_value = ($old_value == 't') ? 'Yes' : 'No';
         }
         return ['old_value' => $old_value, 'new_value' => $new_value];
+    }
+
+    public function auditLog($performed_on, $target_id, $log_name, $description)
+    {
+        if (Schema::hasTable('activity_log') && Schema::hasColumn('activity_log', 'target_id')) {
+            if (!empty($description)) {
+                activity()
+                    ->causedBy(\auth()->id())
+                    ->performedOn($performed_on)
+                    ->tap(function (Activity $activity) use ($target_id, $log_name) {
+                        $activity->target_id = $target_id ?? null;
+                        $activity->log_name = $log_name;
+                    })
+                    ->log($description);
+            }
+        }
     }
 
 }

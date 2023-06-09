@@ -10,7 +10,6 @@ use Devzone\UserManagement\Traits\LogActivityManualTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
-use Spatie\Activitylog\Models\Activity;
 
 class ChangePassword extends Component
 {
@@ -55,20 +54,6 @@ class ChangePassword extends Component
             $this->addError('error', $ex->getMessage());
         }
 
-    }
-
-    public function auditLog($performed_on, $target_id, $log_name, $description)
-    {
-        if (!empty($description)) {
-            activity()
-                ->causedBy(\auth()->id())
-                ->performedOn($performed_on)
-                ->tap(function (Activity $activity) use ($target_id, $log_name) {
-                    $activity->target_id = $target_id ?? null;
-                    $activity->log_name = $log_name;
-                })
-                ->log($description);
-        }
     }
 
 }

@@ -277,7 +277,7 @@
 
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex  flex-row-reverse">
                                             <a title="details" href="{{ url('ums/activity-details') }}/{{$u['id']}}"
-                                               class="text-indigo-600 hover:text-indigo-900 ml-2">
+                                               class="text-indigo-600 hover:text-indigo-900 ml-2">Details
                                             </a>
                                         </td>
                                     </tr>

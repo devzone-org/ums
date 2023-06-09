@@ -6,7 +6,6 @@ use App\Models\Permission;
 use App\Models\User;
 use Devzone\UserManagement\Traits\LogActivityManualTrait;
 use Livewire\Component;
-use Spatie\Activitylog\Models\Activity;
 
 class PermissionDetail extends Component
 {
@@ -71,20 +70,6 @@ class PermissionDetail extends Component
     public function clear()
     {
         $this->reset(['status', 'email', 'name']);
-    }
-
-    public function auditLog($performed_on, $target_id, $log_name, $description)
-    {
-        if (!empty($description)) {
-            activity()
-                ->causedBy(\auth()->id())
-                ->performedOn($performed_on)
-                ->tap(function (Activity $activity) use ($target_id, $log_name) {
-                    $activity->target_id = $target_id ?? null;
-                    $activity->log_name = $log_name;
-                })
-                ->log($description);
-        }
     }
 
     public function render()
