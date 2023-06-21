@@ -3,10 +3,12 @@
 namespace Devzone\UserManagement\Http\Livewire;
 
 use App\Models\User;
+use Devzone\UserManagement\Traits\LogActivityManualTrait;
 use Livewire\Component;
-
 class Permission extends Component
 {
+    use LogActivityManualTrait;
+
     public $user_id, $user, $success;
     public $portal, $assigned_keyword, $unassigned_keyword;
     public $portals = [];
@@ -121,29 +123,51 @@ class Permission extends Component
 
     public function savePermissionsData()
     {
+        $assign_description = '';
+        $revoke_description = '';
+
         if (!empty($this->assign_selected_permissions)) {
             foreach ($this->assign_selected_permissions as $new_add) {
+
                 $this->user->givePermissionTo("$new_add");
+
+                $assign_description = $assign_description . '"'
+                    . ucwords(\Spatie\Permission\Models\Permission::where('name', $new_add)
+                        ->select('description')->first()['description'])
+                    . '", ';
             }
             if (count($this->assign_selected_permissions) == 1) {
-                $this->success = 'The permission has been changed.';
+                $assign_description = $assign_description . 'permission has been assigned.';
             } else {
-                $this->success = 'The permissions have been changed.';
+                $assign_description = $assign_description . 'permissions have been assigned.';
             }
+
             $this->assign_selected_permissions = [];
         }
 
         if (!empty($this->revoke_selected_permissions)) {
             foreach ($this->revoke_selected_permissions as $new_remove) {
+
                 $this->user->revokePermissionTo("$new_remove");
+
+                $revoke_description = $revoke_description . '"'
+                    . ucwords(\Spatie\Permission\Models\Permission::where('name', $new_remove)
+                        ->select('description')->first()['description'])
+                    . '", ';
             }
             if (count($this->revoke_selected_permissions) == 1) {
-                $this->success = 'The permission has been changed.';
+                $revoke_description = $revoke_description . 'permission has been revoked.';
             } else {
-                $this->success = 'The permissions have been changed.';
+                $revoke_description = $revoke_description . 'permissions have been revoked.';
             }
+
             $this->revoke_selected_permissions = [];
         }
+
+        $this->success = $assign_description . $revoke_description;
+
+        $description = $this->success;
+        $this->auditLog($this->user, $this->user_id, 'UMS', $description);
 
         $this->reset(['assigned_keyword', 'unassigned_keyword']);
         $this->getAssignedPermissions();

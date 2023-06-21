@@ -4,10 +4,13 @@ namespace Devzone\UserManagement\Http\Livewire;
 
 use App\Models\Permission;
 use App\Models\User;
+use Devzone\UserManagement\Traits\LogActivityManualTrait;
 use Livewire\Component;
 
 class PermissionDetail extends Component
 {
+    use LogActivityManualTrait;
+
     public $permission;
     public $assigned_users = [];
     public $unassigned_users = [];
@@ -48,18 +51,24 @@ class PermissionDetail extends Component
 
     public function assign($id)
     {
-        User::find($id)->givePermissionTo($this->permission['name']);
-    }
+        $assign = User::find($id);
+        $assign->givePermissionTo($this->permission['name']);
 
+        $description = '"' . ucwords($this->permission['description']) . '" permission has been assigned.';
+        $this->auditLog($assign, $id, 'UMS', $description);
+    }
 
     public function revoke($id)
     {
-        User::find($id)->revokePermissionTo($this->permission['name']);
+        $revoke = User::find($id);
+        $revoke->revokePermissionTo($this->permission['name']);
+
+        $description = '"' . ucwords($this->permission['description']) . '" permission has been revoked.';
+        $this->auditLog($revoke, $id, 'UMS', $description);
     }
 
     public function clear()
     {
-
         $this->reset(['status', 'email', 'name']);
     }
 

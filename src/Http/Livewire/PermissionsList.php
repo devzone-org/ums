@@ -12,7 +12,8 @@ class PermissionsList extends Component
 
     public function mount()
     {
-        $this->permissions = \Spatie\Permission\Models\Permission::where('portal','!=', 'teacher_management')->get()->toArray();
+        $this->permissions = \Spatie\Permission\Models\Permission::where('portal','!=', 'teacher_management')->orderBy('portal', 'asc')->get()->toArray();
+
     }
 
     public function updatedKeyword($value)
@@ -22,7 +23,7 @@ class PermissionsList extends Component
 
             return $q->orWhere('name','LIKE','%'.$value.'%')->orWhere('section','LIKE','%'.$value.'%')->orWhere('portal','LIKE','%'.$value.'%');
 
-        })->get()->toArray();
+        })->orderBy('portal', 'asc')->get()->toArray();
 
     }
 

@@ -5,18 +5,19 @@ namespace Devzone\UserManagement\Http\Livewire;
 
 
 use App\Models\User;
-use Devzone\Ams\Model\ChartOfAccount;
 use Devzone\UserManagement\Models\UserAdditionalDetail;
+use Devzone\UserManagement\Traits\LogActivityManualTrait;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class Profile extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, LogActivityManualTrait;
 
     public $user = [];
     public $user_details = [];
+    public $old_data = [];
     public $coa = [];
     public $photo;
     public $success;
@@ -55,6 +56,9 @@ class Profile extends Component
             } else {
                 $this->user_details = $this->user_details->toArray();
             }
+            $this->old_data = $this->user_details;
+        }else{
+            $this->old_data = $this->user;
         }
     }
 
@@ -66,6 +70,7 @@ class Profile extends Component
     public function updateUser()
     {
         $this->validate();
+        $temp_desc = '';
         try {
             if (!empty($this->photo) && auth()->user()->can('1.edit-profile-photo')) {
                 $this->user['attachment'] = $this->photo->storePublicly(env('AWS_FOLDER') . 'profile', 's3');
@@ -76,6 +81,22 @@ class Profile extends Component
                 'name' => $this->user['name'],
                 'father_name' => $this->user['father_name'],
             ]);
+
+            if ($this->user['attachment'] != $this->old_data['attachment'])
+            {
+                $temp_desc = ' User profile photo was updated.';
+            }
+
+            unset($this->user['attachment'], $this->old_data['attachment']);
+
+            $description = $this->logDescription($this->user, $this->old_data);
+
+            if (!empty($temp_desc))
+            {
+                $description = $description . $temp_desc;
+            }
+
+            $this->auditLog(User::find($this->user['id']), $this->user['id'], 'UMS', $description);
 
             $this->success = "Profile has been updated.";
         } catch (\Exception $ex) {
@@ -96,6 +117,8 @@ class Profile extends Component
             ]);
         }
 
+        $temp_desc = '';
+
         try {
             if (!empty($this->photo) && auth()->user()->can('1.edit-profile-photo')) {
                 $this->user['attachment'] = $this->photo->storePublicly(env('AWS_FOLDER') . 'profile', 's3');
@@ -103,23 +126,37 @@ class Profile extends Component
 
             if (auth()->user()->can('1.edit-profile-photo'))
             {
-                User::find($this->user['id'])->update([
-                    'attachment' => $this->user['attachment'],
-                ]);
+                if (!empty($this->photo))
+                {
+                    User::find($this->user['id'])->update([
+                        'attachment' => $this->user['attachment'],
+                    ]);
+                    $temp_desc = ' User profile photo was updated.';
+//                    $this->auditLog(User::find($this->user['id']), $this->user['id'], 'UMS', $temp_desc);
+                }
+
             }
 
-            $found = UserAdditionalDetail::find($this->user['id']);
+            $found = UserAdditionalDetail::where('user_id', $this->user['id'])->first();
 
             if (!empty($found)) {
-                $found->update($this->user_details);
+                UserAdditionalDetail::find($found['id'])->update($this->user_details);
             } else {
                 $this->user_details['user_id'] = $this->user['id'];
                 UserAdditionalDetail::create($this->user_details);
             }
+
+            $description = $this->logDescription($this->user_details, $this->old_data);
+            if (!empty($temp_desc))
+            {
+                $description = $description . $temp_desc;
+            }
+            $this->auditLog(UserAdditionalDetail::find($found['id']), $this->user['id'], 'UMS', $description);
 
             $this->success = "Profile has been updated.";
         } catch (\Exception $ex) {
             $this->addError('error', $ex->getMessage());
         }
     }
+
 }

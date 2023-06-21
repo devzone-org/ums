@@ -3,6 +3,7 @@
 namespace Devzone\UserManagement;
 
 use Devzone\UserManagement\Console\DumpMasterData;
+use Devzone\UserManagement\Http\Livewire\ActivityDetails;
 use Devzone\UserManagement\Http\Livewire\AddUser;
 use Devzone\UserManagement\Http\Livewire\PermissionDetail;
 use Devzone\UserManagement\Http\Livewire\PermissionsList;
@@ -13,6 +14,7 @@ use Devzone\UserManagement\Http\Livewire\Permission;
 use Devzone\UserManagement\Http\Livewire\PermissionTr;
 use Devzone\UserManagement\Http\Livewire\Profile;
 use Devzone\UserManagement\Http\Livewire\Schedule;
+use Devzone\UserManagement\Http\Livewire\UserActivity;
 use Devzone\UserManagement\Http\Livewire\Users;
 use Devzone\UserManagement\Http\Middleware\CheckStatus;
 use Devzone\UserManagement\Http\Middleware\CheckTiming;
@@ -77,6 +79,8 @@ class UserManagementServiceProvider extends ServiceProvider
         Livewire::component('permissions-list', PermissionsList::class);
         Livewire::component('permission-detail', PermissionDetail::class);
         Livewire::component('permission-tr', PermissionTr::class);
+        Livewire::component('user-activity', UserActivity::class);
+        Livewire::component('activity-details', ActivityDetails::class);
     }
 
     /**

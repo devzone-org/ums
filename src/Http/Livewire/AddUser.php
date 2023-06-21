@@ -6,11 +6,15 @@ namespace Devzone\UserManagement\Http\Livewire;
 
 use App\Models\User;
 
+use Devzone\UserManagement\Traits\LogActivityManualTrait;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class AddUser extends Component
 {
+    use LogActivityManualTrait;
+
     public $password;
     public $name;
     public $email;
@@ -34,7 +38,7 @@ class AddUser extends Component
     public function addUser()
     {
         $this->validate();
-        User::create([
+        $user = User::create([
             'name' => $this->name,
             'father_name' => $this->father_name,
             'email' => $this->email,
@@ -43,9 +47,11 @@ class AddUser extends Component
             'password' => Hash::make($this->password)
         ]);
 
+        $description = 'The user has been added.';
+        $this->auditLog($user, $user->id, 'UMS', $description);
+
         $this->success = 'User has been created.';
         $this->reset(['name', 'email', 'status', 'password', 'password_confirmation', 'father_name']);
     }
-
 
 }
