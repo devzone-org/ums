@@ -158,7 +158,7 @@
                                     <div class="col-xs-6 w-100 pr-3 px-2 pt-0">
 
                                         <div class="alert alert-success p-4 mb-0">
-                                            <strong>List of all unassigned permissions.</strong>
+                                            <strong>List of all assigned permissions.</strong>
                                         </div>
                                         <div class="divider d-flex justify-content-center">
                                             <button type="button" wire:click="unselectOnly"
