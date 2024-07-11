@@ -5,6 +5,7 @@ namespace Devzone\UserManagement;
 use Devzone\UserManagement\Console\DumpMasterData;
 use Devzone\UserManagement\Http\Livewire\ActivityDetails;
 use Devzone\UserManagement\Http\Livewire\AddUser;
+use Devzone\UserManagement\Http\Livewire\Google2fa;
 use Devzone\UserManagement\Http\Livewire\PermissionDetail;
 use Devzone\UserManagement\Http\Livewire\PermissionsList;
 use Devzone\UserManagement\Http\Livewire\ChangePassword;
@@ -16,6 +17,7 @@ use Devzone\UserManagement\Http\Livewire\Profile;
 use Devzone\UserManagement\Http\Livewire\Schedule;
 use Devzone\UserManagement\Http\Livewire\UserActivity;
 use Devzone\UserManagement\Http\Livewire\Users;
+use Devzone\UserManagement\Http\Livewire\Verify2fa;
 use Devzone\UserManagement\Http\Middleware\CheckStatus;
 use Devzone\UserManagement\Http\Middleware\CheckTiming;
 use Illuminate\Contracts\Http\Kernel;
@@ -70,6 +72,8 @@ class UserManagementServiceProvider extends ServiceProvider
     {
         Livewire::component('profile', Profile::class);
         Livewire::component('change-password', ChangePassword::class);
+        Livewire::component('google2fa', Google2fa::class);
+        Livewire::component('verify2fa', Verify2fa::class);
         Livewire::component('add-user', AddUser::class);
         Livewire::component('edit-user', EditUser::class);
         Livewire::component('users', Users::class);

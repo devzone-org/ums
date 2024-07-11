@@ -25,6 +25,7 @@ class DumpMasterData extends Command
         Permission::updateOrCreate(['name' => '1.user-permission'], ['guard_name' => 'web', 'description' => 'user permissions', 'portal' => 'user management', 'section' => 'user management']);
         Permission::updateOrCreate(['name' => '1.edit-profile-photo'], ['guard_name' => 'web', 'description' => 'edit profile photo', 'portal' => 'user management', 'section' => 'user management']);
         Permission::updateOrCreate(['name' => '1.change-users-passwords'], ['guard_name' => 'web', 'description' => 'change users passwords', 'portal' => 'user management', 'section' => 'user management']);
+        Permission::updateOrCreate(['name' => '1.google-2fa-enable'], ['guard_name' => 'web', 'description' => 'google 2fa enable', 'portal' => 'user management', 'section' => 'user management']);
 
         Permission::updateOrCreate(['name' => '1.user-activity'], ['guard_name' => 'web', 'description' => 'user activity', 'portal' => 'user management', 'section' => 'user management']);
 
