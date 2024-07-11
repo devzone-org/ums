@@ -21,6 +21,15 @@ Route::middleware(['auth'])->group(function () {
         return view('ums::change-password');
     });
 
+    Route::group(['middleware' => ['can:1.google-2fa-enable']], function () {
+    Route::get('2fa', function () {
+        if(!isset(auth()->user()['2fa'])){
+            return redirect()->to('ums');
+        }
+        return view('ums::google2fa');
+    });
+    });
+
     Route::group(['middleware' => ['can:1.user.list']], function () {
         Route::get('users', function () {
             return view('ums::users');
@@ -48,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 
-    Route::group(['middleware' => ['can:1.user-activity']], function () {
+//    Route::group(['middleware' => ['can:1.user-activity']], function () {
 
         Route::get('user-activity', function () {
             return view('ums::user-activity');
@@ -57,7 +66,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('activity-details/{id}', function ($id) {
             return view('ums::activity-details', compact('id'));
         });
-    });
+//    });
 
 });
 
