@@ -21,14 +21,14 @@ Route::middleware(['auth'])->group(function () {
         return view('ums::change-password');
     });
 
-    Route::group(['middleware' => ['can:1.google-2fa-enable']], function () {
-    Route::get('2fa', function () {
-        if(!isset(auth()->user()['2fa'])){
-            return redirect()->to('ums');
-        }
-        return view('ums::google2fa');
-    });
-    });
+    // Route::group(['middleware' => ['can:1.google-2fa-enable']], function () {
+    // Route::get('2fa', function () {
+    //     if(!isset(auth()->user()['2fa'])){
+    //         return redirect()->to('ums');
+    //     }
+    //     return view('ums::google2fa');
+    // });
+    // });
 
     Route::group(['middleware' => ['can:1.user.list']], function () {
         Route::get('users', function () {

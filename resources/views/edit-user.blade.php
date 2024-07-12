@@ -40,6 +40,10 @@
             <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
                 @if(auth()->user()->can('1.user-edit'))
                     @livewire('edit-user',['id' => $id])
+
+                    @if(auth()->user()->can('1.google-2fa-enable'))
+                        @livewire('google2fa')
+                    @endif
                 @else
 
                     <div class="rounded-md bg-yellow-50 p-4">
