@@ -30,6 +30,7 @@ class Google2fa extends Component
     {
         $this->success = null;
         $this->resetErrorBag();
+
         $this->validate();
 
         try {
@@ -42,7 +43,7 @@ class Google2fa extends Component
                 '2fa' => $this->google2fa
             ]);
 
-            $this->success = '2FA updated successfully.';
+            $this->success = 'Google 2FA has been ' . ($this->google2fa == 't' ? 'enabled' : 'disabled') . ' successfully.';
 
 //            $description = $this->success;
 //            $this->auditLog(User::find(auth()->user()->id), auth()->user()->id, 'UMS', $description);

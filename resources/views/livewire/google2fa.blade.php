@@ -9,7 +9,7 @@
 
                     @include('ums::include.messages')
                     <div class="grid grid-cols-6 gap-6 ">
-                        <div class="col-span-6 sm:col-span-2 mt-5">
+                        <div class="col-span-6 sm:col-span-3 mt-1">
                             <label for="current_password" class="block text-sm font-medium text-gray-700">Google 2FA Enabled?</label>
                             <select
                                     wire:model.defer="google2fa"
@@ -27,7 +27,7 @@
                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                     <button type="submit"
                             class="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Save
+                        Update
                     </button>
                 </div>
             </div>
