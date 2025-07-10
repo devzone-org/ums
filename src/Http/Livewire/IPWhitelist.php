@@ -37,6 +37,7 @@ class IPWhitelist extends Component
 
     public function addIp()
     {
+        $this->resetErrorBag();
         $this->validate();
         try {
             if (IpRestriction::where('user_id', $this->user->id)->where('ip', $this->ip)->exists()) {
@@ -75,8 +76,8 @@ class IPWhitelist extends Component
 
     public function editIp()
     {
+        $this->resetErrorBag();
         $this->validate();
-
         try {
             $duplicate = IpRestriction::where('id', '!=', $this->primary_id)
                 ->where('user_id', $this->user_id)
