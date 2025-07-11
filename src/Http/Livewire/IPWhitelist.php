@@ -16,23 +16,31 @@ class IPWhitelist extends Component
     public $user_id;
     public $type = "listing";
     public $ip;
+    public $ips;
     public $status;
     public $primary_id;
 
     protected $rules = [
         'ip' => 'required|ip',
-        'status' => 'required'
+        'status' => 'required|in:t,f'
     ];
 
     public function mount($id)
     {
         $this->user = User::find($id);
+        if(!empty($this->user)){
+            $this->user_id = $id;
+            $this->search();
+        }
+    }
+
+    public function search(){
+        $this->ips = IpRestriction::where('user_id', $this->user->id)->get();
     }
 
     public function render()
     {
-        $ips = IpRestriction::get();
-        return view('ums::livewire.ip-restriction', compact('ips'));
+        return view('ums::livewire.ip-restriction');
     }
 
     public function addIp()
@@ -64,6 +72,7 @@ class IPWhitelist extends Component
             ]);
 
             $this->reset(['type', 'ip', 'status']);
+            $this->search();
 
         } catch (\Exception $e) {
             $this->addError('ip', $e->getMessage());
@@ -76,6 +85,10 @@ class IPWhitelist extends Component
         $this->type = 'edit';
         $this->primary_id = $id;
         $ip = IpRestriction::find($id);
+        if (!$ip) {
+            $this->addError('ip', 'IP record not found.');
+            return;
+        }
         $this->ip = $ip->ip;
         $this->user_id = $ip->user_id;
         $this->status = $ip->status;
@@ -97,10 +110,6 @@ class IPWhitelist extends Component
             }
 
             $ip = IpRestriction::find($this->primary_id);
-            if (!$ip) {
-                throw new \Exception("IP restriction not found.");
-            }
-
             $is_changing_to_active = $this->status === 't' && $ip->status !== 't';
             if ($is_changing_to_active) {
                 $limit = intval(env('IP_WHITELIST_LIMIT', 5));
@@ -118,7 +127,8 @@ class IPWhitelist extends Component
                 'ip' => $this->ip,
                 'status' => $this->status,
             ]);
-            $this->reset('type');
+            $this->reset(['type','primary_id','status','ip']);
+            $this->search();
         } catch (\Exception $e) {
             $this->addError('ip', $e->getMessage());
         }
