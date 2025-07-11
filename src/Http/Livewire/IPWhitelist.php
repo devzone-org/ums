@@ -35,7 +35,7 @@ class IPWhitelist extends Component
     }
 
     public function search(){
-        $this->ips = IpRestriction::where('user_id', $this->user->id)->get();
+        $this->ips = IpRestriction::where('user_id', $this->user->id)->orderBy('created_at', 'desc')->get();
     }
 
     public function render()
