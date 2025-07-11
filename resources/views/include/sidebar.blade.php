@@ -41,6 +41,16 @@
         </span>
         </a>
 
+        @can('1.manage-role')
+        <a href="{{ url('ums/manage-roles') }}"
+           class="{{ (Request::segment(1) == 'ums'  &&  (Request::segment(2) == 'manage-roles' || Request::segment(3) == 'assign-permissions')) ? $current : $default  }} group rounded-md px-3 py-2 flex items-center text-sm font-medium"
+           aria-current="page">
+            <span class="truncate">
+          Manage Roles
+        </span>
+        </a>
+        @endcan
+
         <a href="{{ url('ums/permissions-list') }}"
            class="{{ (Request::segment(1) == 'ums'  &&  (Request::segment(2) == 'permissions-list' || Request::segment(2) == 'permission-detail') ) ? $current : $default  }} group rounded-md px-3 py-2 flex items-center text-sm font-medium"
            aria-current="page">

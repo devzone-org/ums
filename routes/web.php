@@ -35,6 +35,15 @@ Route::middleware(['auth'])->group(function () {
             return view('ums::users');
         });
     });
+    Route::group(['middleware' => ['can:1.manage-role']], function () {
+        Route::get('manage-roles', function () {
+            return view('ums::manage-roles');
+        });
+        Route::get('roles/assign-permissions/{id}', function ($id) {
+            return view('ums::assign-permission-roles', compact('id'));
+        });
+    });
+
 
     Route::group(['middleware' => ['can:1.user.create']], function () {
         Route::get('users/add', function () {

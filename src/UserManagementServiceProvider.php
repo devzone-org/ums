@@ -5,7 +5,10 @@ namespace Devzone\UserManagement;
 use Devzone\UserManagement\Console\DumpMasterData;
 use Devzone\UserManagement\Http\Livewire\ActivityDetails;
 use Devzone\UserManagement\Http\Livewire\AddUser;
+use Devzone\UserManagement\Http\Livewire\AssignPermissionToRoles;
+use Devzone\UserManagement\Http\Livewire\AssignRole;
 use Devzone\UserManagement\Http\Livewire\Google2fa;
+use Devzone\UserManagement\Http\Livewire\ManageRoles;
 use Devzone\UserManagement\Http\Livewire\PermissionDetail;
 use Devzone\UserManagement\Http\Livewire\PermissionsList;
 use Devzone\UserManagement\Http\Livewire\ChangePassword;
@@ -85,6 +88,9 @@ class UserManagementServiceProvider extends ServiceProvider
         Livewire::component('permission-tr', PermissionTr::class);
         Livewire::component('user-activity', UserActivity::class);
         Livewire::component('activity-details', ActivityDetails::class);
+        Livewire::component('manage-roles', ManageRoles::class);
+        Livewire::component('assign-role', AssignRole::class);
+        Livewire::component('assign-permission-to-roles', AssignPermissionToRoles::class);
     }
 
     /**

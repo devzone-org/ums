@@ -6,6 +6,8 @@
     <title>@yield('title') - {{ config('app.name') }}</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link href="{{ asset('user/css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     @livewireStyles
     <style>
         [x-cloak] {
@@ -31,6 +33,7 @@
     </style>
     @livewireScripts
     <script src="{{ asset('user/js/app.js') }}"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 <body class="bg-gray-200">
 
