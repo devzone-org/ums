@@ -5,7 +5,7 @@
             <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                 <div class="flex justify-between items-center">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">IP Whitelists</h3>
-                    <button type="button" wire:click="$set('type','add')"
+                    <button type="button" wire:click="setAdd"
                             class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
                         Add IP
                     </button>
@@ -93,7 +93,7 @@
 
             </div>
             <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                <button type="button" wire:click="$set('type','listing')"
+                <button type="button" wire:click="setListing"
                         class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
                     Back
                 </button>
@@ -133,7 +133,7 @@
 
             </div>
             <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                <button type="button" wire:click="$set('type','listing')"
+                <button type="button" wire:click="setListing"
                         class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
                     Back
                 </button>

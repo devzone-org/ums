@@ -39,30 +39,37 @@ class IPWhitelist extends Component
     {
         $this->resetErrorBag();
         $this->validate();
+
         try {
             if (IpRestriction::where('user_id', $this->user->id)->where('ip', $this->ip)->exists()) {
-                throw new \Exception('Ip duplication found.');
+                throw new \Exception('IP duplication found.');
             }
-            if (!empty(env('IP_WHITELIST_LIMIT', 5))) {
-                if (intval(IpRestriction::where('user_id', $this->user->id)->where('status', 't')->count()) >= env('IP_WHITELIST_LIMIT', 5)) {
-                    throw new \Exception("You have reached the maximum limit of active ip's.");
+            if ($this->status === 't') {
+                $limit = intval(env('IP_WHITELIST_LIMIT', 5));
+
+                if ($limit === 0) {
+                    throw new \Exception("User IP limit not defined.");
                 }
-            } else {
-                throw new \Exception("User Ip limit not defined.");
+                $active_ip_count = IpRestriction::where('user_id', $this->user->id)
+                    ->where('status', 't')
+                    ->count();
+                if ($active_ip_count >= $limit) {
+                    throw new \Exception("You have reached the maximum limit of active IPs.");
+                }
             }
             IpRestriction::create([
                 'ip' => $this->ip,
                 'user_id' => $this->user->id,
                 'status' => $this->status
             ]);
+
             $this->reset(['type', 'ip', 'status']);
+
         } catch (\Exception $e) {
             $this->addError('ip', $e->getMessage());
-
         }
-
-
     }
+
 
     public function edit($id)
     {
@@ -78,17 +85,34 @@ class IPWhitelist extends Component
     {
         $this->resetErrorBag();
         $this->validate();
+
         try {
             $duplicate = IpRestriction::where('id', '!=', $this->primary_id)
                 ->where('user_id', $this->user_id)
                 ->where('ip', $this->ip)
                 ->exists();
+
             if ($duplicate) {
                 throw new \Exception('IP duplication found.');
             }
+
             $ip = IpRestriction::find($this->primary_id);
             if (!$ip) {
                 throw new \Exception("IP restriction not found.");
+            }
+
+            $is_changing_to_active = $this->status === 't' && $ip->status !== 't';
+            if ($is_changing_to_active) {
+                $limit = intval(env('IP_WHITELIST_LIMIT', 5));
+                if ($limit === 0) {
+                    throw new \Exception("User IP limit not defined.");
+                }
+                $activeCount = IpRestriction::where('user_id', $this->user_id)
+                    ->where('status', 't')
+                    ->count();
+                if ($activeCount >= $limit) {
+                    throw new \Exception("You have reached the maximum limit of active IPs.");
+                }
             }
             $ip->update([
                 'ip' => $this->ip,
@@ -98,6 +122,16 @@ class IPWhitelist extends Component
         } catch (\Exception $e) {
             $this->addError('ip', $e->getMessage());
         }
+    }
+
+    public function setAdd(){
+        $this->type = "add";
+        $this->reset(['ip', 'status']);
+        $this->resetErrorBag();
+    }
+    public function setListing(){
+        $this->type = "listing";
+        $this->resetErrorBag();
     }
 
 
