@@ -119,7 +119,9 @@ class ManageRoles extends Component
                 if (!auth()->user()->can('1.manage-role')) {
                     throw new \Exception("You don't have the permission to perform this action.");
                 }
-                $is_duplicate = Role::where('name', $this->role_name)->first();
+                $is_duplicate = Role::where('name', $this->role_name)
+                    ->where('id', '!=', $this->edit_id)
+                    ->first();
                 if(!empty($is_duplicate)){
                     throw new \Exception('Role already exists!');
                 }
