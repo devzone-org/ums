@@ -100,7 +100,6 @@
                         </div>
                     </div>
                 @endif
-                @livewire('ip-restriction',['id'=>$id])
 
                 @if(auth()->user()->can('1.user-ipwhitelist'))
                     @livewire('ip-restriction',['id'=>$id])
