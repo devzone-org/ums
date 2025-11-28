@@ -10,6 +10,7 @@
             const osPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const shouldUseDark = stored ? stored === 'dark' : osPrefersDark;
             document.documentElement.classList.toggle('dark', shouldUseDark);
+            document.documentElement.classList.toggle('dark-ums', shouldUseDark);
         })();
     </script>
 
