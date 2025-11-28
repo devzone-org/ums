@@ -16,9 +16,6 @@
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link href="{{ asset('user/css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    @if (file_exists(public_path('css/dark-mode.css')))
-        <link href="{{ asset('css/dark-mode.css') }}" rel="stylesheet">
-    @endif
     @livewireStyles
     <style>
         [x-cloak] {
@@ -42,6 +39,9 @@
             background-color: #fff;
         }
     </style>
+    @if (file_exists(public_path('css/dark-mode.css')))
+        <link href="{{ asset('css/dark-mode.css') }}" rel="stylesheet">
+    @endif
     @livewireScripts
     <script src="{{ asset('user/js/app.js') }}"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
