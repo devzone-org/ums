@@ -27,7 +27,7 @@ class AssignPermissionToRoles extends Component
         $this->role = Role::findOrFail($id);
 
         $this->portals = Permission::where('portal', '!=', 'teacher_management')
-            ->whereNotIn('section', config('user-management.hidden_sections', []))
+            ->whereNotIn('portal', config('user-management.hidden_portals', []))
             ->groupBy('portal')
             ->get()
             ->toArray();
@@ -51,7 +51,7 @@ class AssignPermissionToRoles extends Component
         try {
             $assignedNames = $this->role->permissions->pluck('name')->toArray();
             $assignedPermissionsQuery = Permission::where('portal', '!=', 'teacher_management')
-                ->whereNotIn('section', config('user-management.hidden_sections', []))
+                ->whereNotIn('portal', config('user-management.hidden_portals', []))
                 ->when($this->portal, function ($q) {
                     return $q->where('portal', $this->portal);
                 })
@@ -79,7 +79,7 @@ class AssignPermissionToRoles extends Component
             $assignedNames = $this->role->permissions->pluck('name')->toArray();
 
             $this->unassigned_permissions = Permission::where('portal', '!=', 'teacher_management')
-                ->whereNotIn('section', config('user-management.hidden_sections', []))
+                ->whereNotIn('portal', config('user-management.hidden_portals', []))
                 ->when($this->portal, function ($q) {
                     return $q->where('portal', $this->portal);
                 })
@@ -148,7 +148,7 @@ class AssignPermissionToRoles extends Component
             if (empty($this->assign_selected_permissions) && empty($this->revoke_selected_permissions)) {
                 throw new \Exception("Please select permission(s) to assign or revoke.");
             }else{
-                if (!empty($this->assign_selected_permissions) && Permission::whereIn('name', $this->assign_selected_permissions)->whereIn('section', config('user-management.hidden_sections', []))->exists()) {
+                if (!empty($this->assign_selected_permissions) && Permission::whereIn('name', $this->assign_selected_permissions)->whereIn('portal', config('user-management.hidden_portals', []))->exists()) {
                     throw new \Exception("You don't have permission to perform this action");
                 }
                 if (!empty($this->assign_selected_permissions)) {

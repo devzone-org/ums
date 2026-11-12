@@ -25,7 +25,7 @@ class Permission extends Component
         $this->user_id = $id;
         $this->user = User::find($id);
         $this->portals = \Spatie\Permission\Models\Permission::where('portal', '!=', 'teacher_management')
-            ->whereNotIn('section', config('user-management.hidden_sections', []))
+            ->whereNotIn('portal', config('user-management.hidden_portals', []))
             ->groupBy('portal')
             ->select('portal')
             ->get()
@@ -51,7 +51,7 @@ class Permission extends Component
         try {
             $assigned_names = $this->user->getPermissionNames()->toArray();
             $this->assigned_permissions = \Spatie\Permission\Models\Permission::where('portal', '!=', 'teacher_management')
-                ->whereNotIn('section', config('user-management.hidden_sections', []))
+                ->whereNotIn('portal', config('user-management.hidden_portals', []))
                 ->when(!empty($this->portal), function ($q) {
                     return $q->where('portal', $this->portal);
                 })
@@ -79,7 +79,7 @@ class Permission extends Component
         try {
             $assigned_names = $this->user->getPermissionNames()->toArray();
             $this->unassigned_permissions = \Spatie\Permission\Models\Permission::where('portal', '!=', 'teacher_management')
-                ->whereNotIn('section', config('user-management.hidden_sections', []))
+                ->whereNotIn('portal', config('user-management.hidden_portals', []))
                 ->when(!empty($this->portal), function ($q) {
                     return $q->where('portal', $this->portal);
                 })
@@ -135,7 +135,7 @@ class Permission extends Component
 
         if (!empty($this->assign_selected_permissions)) {
             $this->assign_selected_permissions = \Spatie\Permission\Models\Permission::whereIn('name', $this->assign_selected_permissions)
-                ->whereNotIn('section', config('user-management.hidden_sections', []))
+                ->whereNotIn('portal', config('user-management.hidden_portals', []))
                 ->pluck('name')
                 ->toArray();
         }
