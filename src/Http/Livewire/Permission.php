@@ -25,6 +25,7 @@ class Permission extends Component
         $this->user_id = $id;
         $this->user = User::find($id);
         $this->portals = \Spatie\Permission\Models\Permission::where('portal', '!=', 'teacher_management')
+            ->whereNotIn('portal', config('user-management.hidden_portals', []))
             ->groupBy('portal')
             ->select('portal')
             ->get()
@@ -48,16 +49,19 @@ class Permission extends Component
     public function getAssignedPermissions()
     {
         try {
+            $assigned_names = $this->user->getPermissionNames()->toArray();
             $this->assigned_permissions = \Spatie\Permission\Models\Permission::where('portal', '!=', 'teacher_management')
+                ->whereNotIn('portal', config('user-management.hidden_portals', []))
                 ->when(!empty($this->portal), function ($q) {
                     return $q->where('portal', $this->portal);
                 })
                 ->when(!empty($this->assigned_keyword), function ($q) {
-                    return $q->whereIn('name', $this->user->getPermissionNames()->toArray())
-                        ->where('description', 'LIKE', '%' . $this->assigned_keyword . '%')
-                        ->orWhere('section', 'LIKE', '%' . $this->assigned_keyword . '%');
+                    return $q->where(function ($q) {
+                        $q->where('description', 'LIKE', '%' . $this->assigned_keyword . '%')
+                            ->orWhere('section', 'LIKE', '%' . $this->assigned_keyword . '%');
+                    });
                 })
-                ->whereIn('name', $this->user->getPermissionNames()->toArray())
+                ->whereIn('name', $assigned_names)
                 ->orderBy('portal')
                 ->orderBy('section')
                 ->get()
@@ -73,16 +77,19 @@ class Permission extends Component
     public function getUnassignedPermissions()
     {
         try {
+            $assigned_names = $this->user->getPermissionNames()->toArray();
             $this->unassigned_permissions = \Spatie\Permission\Models\Permission::where('portal', '!=', 'teacher_management')
+                ->whereNotIn('portal', config('user-management.hidden_portals', []))
                 ->when(!empty($this->portal), function ($q) {
                     return $q->where('portal', $this->portal);
                 })
                 ->when(!empty($this->unassigned_keyword), function ($q) {
-                    return $q->whereNotIn('name', $this->user->getPermissionNames()->toArray())
-                        ->where('description', 'LIKE', '%' . $this->unassigned_keyword . '%')
-                        ->orWhere('section', 'LIKE', '%' . $this->unassigned_keyword . '%');
+                    return $q->where(function ($q) {
+                        $q->where('description', 'LIKE', '%' . $this->unassigned_keyword . '%')
+                            ->orWhere('section', 'LIKE', '%' . $this->unassigned_keyword . '%');
+                    });
                 })
-                ->whereNotIn('name', $this->user->getPermissionNames()->toArray())
+                ->whereNotIn('name', $assigned_names)
                 ->orderBy('portal')
                 ->orderBy('section')
                 ->get()
@@ -125,6 +132,13 @@ class Permission extends Component
     {
         $assign_description = '';
         $revoke_description = '';
+
+        if (!empty($this->assign_selected_permissions)) {
+            $this->assign_selected_permissions = \Spatie\Permission\Models\Permission::whereIn('name', $this->assign_selected_permissions)
+                ->whereNotIn('portal', config('user-management.hidden_portals', []))
+                ->pluck('name')
+                ->toArray();
+        }
 
         if (!empty($this->assign_selected_permissions)) {
             foreach ($this->assign_selected_permissions as $new_add) {

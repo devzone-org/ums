@@ -3,5 +3,7 @@
 return [
     'prefix' => 'ums',
     'middleware' => ['web'],
-    'link_user_account' => true
+    'link_user_account' => true,
+    // Permission portals hidden from the user/role permission screens. Set in the app's published config, e.g. ['examination'].
+    'hidden_portals' => [],
 ];
